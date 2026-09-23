@@ -28,14 +28,10 @@
       margin-bottom:1rem;
     }
 
-    /* SECTION DIVIDER */
-    .section-divider {
-      margin:2rem 0 1rem;
-      padding-bottom:0.4rem;
-      border-bottom:3px solid #005EB8;
-      font-size:1.2rem;
-      font-weight:bold;
+    h2 {
       color:#003087;
+      margin-top:2rem;
+      margin-bottom:0.5rem;
     }
 
     p.section-desc {
@@ -75,7 +71,7 @@
       border:1px solid #D8DDE0;
       border-radius:6px;
       padding:1rem 1.2rem;
-      margin-top:0.5rem;
+      margin-top:1rem;
     }
 
     legend {
@@ -106,6 +102,14 @@
       width:18px;
       height:18px;
       flex-shrink:0;
+    }
+
+    /* Raise text by ~3mm */
+    .checkbox-item label {
+      position:relative;
+      top:-3px;
+      margin:0;
+      padding:0;
     }
 
     button {
@@ -174,7 +178,7 @@
     <div id="errorBox" class="error-box"></div>
 
     <!-- SECTION 1 -->
-    <div class="section-divider">Your Details</div>
+    <h2>Your Details</h2>
     <p class="section-desc">These details help us calculate your BMI and apply the correct eligibility thresholds.</p>
 
     <div class="row">
@@ -206,7 +210,7 @@
     </div>
 
     <!-- SECTION 2 -->
-    <div class="section-divider">Your Health Conditions</div>
+    <h2>Your Health Conditions</h2>
     <p class="section-desc">These conditions help determine eligibility for digital programmes, Tier 2, Tier 3, and Tier 4 services.</p>
 
     <fieldset>
@@ -248,7 +252,7 @@
     </fieldset>
 
     <!-- SECTION 3 -->
-    <div class="section-divider">Specialist Clinical Conditions</div>
+    <h2>Specialist Clinical Conditions</h2>
     <p class="section-desc">These conditions are used for Tier 3 medication eligibility (Wegovy, Mounjaro) and Tier 4 surgery.</p>
 
     <fieldset>
