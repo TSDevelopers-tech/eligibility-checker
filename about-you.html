@@ -1,1 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About You</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background:#E8F1F8;
+      margin:0;
+      padding:0;
+    }
+
+    .container {
+      max-width:900px;
+      margin:2rem auto;
+      background:#fff;
+      padding:2rem;
+      border-radius:8px;
+      border:1px solid #D8DDE0;
+    }
+
+    h1 {
+      color:#005EB8;
+      margin-top:0;
+      margin-bottom:1rem;
+    }
+
+    h2 {
+      color:#003087;
+      margin-top:2rem;
+      margin-bottom:0.5rem;
+      border-bottom:2px solid #D8DDE0;
+      padding-bottom:0.3rem;
+    }
+
+    p.section-desc {
+      color:#425563;
+      margin-top:0;
+      margin-bottom:1rem;
+      font-size:0.95rem;
+    }
+
+    label {
+      font-weight:bold;
+      color:#003087;
+      display:block;
+      margin-top:1rem;
+    }
+
+    input, select {
+      width:100%;
+      padding:0.6rem;
+      margin-top:0.3rem;
+      border:1px solid #D8DDE0;
+      border-radius:4px;
+      font-size:1rem;
+    }
+
+    .grid-two {
+      display:flex;
+      flex-wrap:wrap;
+      gap:1rem;
+    }
+
+    .grid-two > div {
+      flex:1 1 260px;
+    }
+
+    fieldset {
+      border:1px solid #D8DDE0;
+      border-radius:6px;
+      padding:1rem 1.2rem;
+      margin-top:0.5rem;
+    }
+
+    legend {
+      padding:0 0.4rem;
+      font-weight:bold;
+      color:#003087;
+    }
+
+    .checkbox-list {
+      margin-top:0.5rem;
+      display:flex;
+      flex-direction:column;
+      gap:0.4rem;
+    }
+
+    .checkbox-item {
+      display:flex;
+      align-items:flex-start;
+      gap:0.5rem;
+      color:#425563;
+      font-size:0.95rem;
+      line-height:1.3;
+    }
+
+    .checkbox-item input {
+      margin-top:0.15rem;
+    }
+
+    button {
+      background:#005EB8;
+      color:#fff;
+      border:none;
+      padding:0.9rem 1.6rem;
+      font-size:1rem;
+      border-radius:6px;
+      cursor:pointer;
+      margin-top:2rem;
+    }
+
+    button:hover {
+      background:#003087;
+    }
+
+    .back-btn {
+      background:#D8DDE0;
+      color:#003087;
+      margin-right:1rem;
+    }
+
+    .back-btn:hover {
+      background:#C0C6CC;
+    }
+
+    .info-box {
+      background:#F0F7FF;
+      border-left:4px solid #005EB8;
+      padding:1rem;
+      border-radius:4px;
+      color:#003087;
+      margin-bottom:1.5rem;
+      font-size:0.95rem;
+    }
+
+    .error-box {
+      background:#FBE3E5;
+      border-left:4px solid #DA291C;
+      padding:1rem;
+      border-radius:4px;
+      color:#DA291C;
+      margin-bottom:1rem;
+      font-size:0.95rem;
+      display:none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Tell Us About You</h1>
+
+    <div class="info-box">
+      This information helps us check which NHS and local weight‑management services you may be eligible for.
+      Your answers are not stored permanently and are only used to generate your results.
+    </div>
+
+    <div id="errorBox" class="error-box"></div>
+
+    <!-- SECTION 1: BASIC DETAILS -->
+    <h2>Your Details</h2>
+    <p class="section-desc">These details help us calculate your BMI and apply the correct eligibility thresholds.</p>
+
+    <div class="grid-two">
+      <div>
+        <label>Age</label>
+        <input type="number" id="age" min="16" max="120" placeholder="e.g. 45">
+      </div>
+
+      <div>
+        <label>Ethnic background</label>
+        <select id="ethnicity">
+          <option value="">Select</option>
+          <option value="standard">White European / Other</option>
+          <option value="adjusted">Asian, Middle Eastern, Black African, African‑Caribbean</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid-two">
+      <div>
+        <label>Height (cm)</label>
+        <input type="number" id="height" placeholder="e.g. 170">
+      </div>
+
+      <div>
+        <label>Weight (kg)</label>
+        <input type="number" id="weight" placeholder="e.g. 95">
+      </div>
+    </div>
+
+    <!-- SECTION 2: HEALTH CONDITIONS -->
+    <h2>Your Health Conditions</h2>
+    <p class="section-desc">These conditions help determine eligibility for digital programmes, Tier 2, Tier 3, and Tier 4 services.</p>
+
+    <fieldset>
+      <legend>Health conditions</legend>
+      <div class="checkbox-list">
+        <div class="checkbox-item">
+          <input type="checkbox" id="t1dm">
+          <label for="t1dm">Type 1 diabetes</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="t2dm">
+          <label for="t2dm">Type 2 diabetes</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="prediabetes">
+          <label for="prediabetes">Prediabetes</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="gestational">
+          <label for="gestational">Previous gestational diabetes</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="hypertension">
+          <label for="hypertension">High blood pressure</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="cvd">
+          <label for="cvd">Cardiovascular disease</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="sleepApnoea">
+          <label for="sleepApnoea">Sleep apnoea</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="lipids">
+          <label for="lipids">Abnormal blood fats</label>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- SECTION 3: SPECIALIST CONDITIONS -->
+    <h2>Specialist Clinical Conditions</h2>
+    <p class="section-desc">These conditions are used for Tier 3 medication eligibility (Wegovy, Mounjaro) and Tier 4 surgery.</p>
+
+    <fieldset>
+      <legend>Specialist conditions</legend>
+      <div class="checkbox-list">
+        <div class="checkbox-item">
+          <input type="checkbox" id="precancer">
+          <label for="precancer">Precancerous or cancer-related condition</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="transplant">
+          <label for="transplant">Weight loss required before organ transplant</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="iih">
+          <label for="iih">Idiopathic intracranial hypertension (IIH)</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="surgeryBarrier">
+          <label for="surgeryBarrier">BMI is a barrier to life‑limiting surgery</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="fertility">
+          <label for="fertility">Weight loss required for fertility treatment</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="genetic">
+          <label for="genetic">Proven genetic cause of obesity</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="severeOSA">
+          <label for="severeOSA">Severe obstructive sleep apnoea (on CPAP)</label>
+        </div>
+      </div>
+    </fieldset>
+
+    <button class="back-btn" onclick="location.href='index.html'">Back</button>
+    <button onclick="saveAndContinue()">See My Results</button>
+  </div>
+
+  <script>
+    function showError(message) {
+      const box = document.getElementById("errorBox");
+      box.style.display = "block";
+      box.textContent = message;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function saveAndContinue() {
+      const age = document.getElementById("age").value;
+      const ethnicity = document.getElementById("ethnicity").value;
+      const height = document.getElementById("height").value;
+      const weight = document.getElementById("weight").value;
+
+      if (!age || age < 16 || age > 120) {
+        showError("Please enter a valid age (16–120).");
+        return;
+      }
+
+      if (!ethnicity) {
+        showError("Please select your ethnic background.");
+        return;
+      }
+
+      if (!height || height < 120 || height > 250) {
+        showError("Please enter a valid height in centimetres.");
+        return;
+      }
+
+      if (!weight || weight < 30 || weight > 300) {
+        showError("Please enter a valid weight in kilograms.");
+        return;
+      }
+
+      document.getElementById("errorBox").style.display = "none";
+
+      const fields = [
+        "age","ethnicity","height","weight",
+        "t1dm","t2dm","prediabetes","gestational",
+        "hypertension","cvd","sleepApnoea","lipids",
+        "precancer","transplant","iih","surgeryBarrier",
+        "fertility","genetic","severeOSA"
+      ];
+
+      const data = {};
+      fields.forEach(id => {
+        const el = document.getElementById(id);
+        data[id] = el.type === "checkbox" ? el.checked : el.value;
+      });
+
+      localStorage.setItem("wmData", JSON.stringify(data));
+      location.href = "results.html";
+    }
+  </script>
+</body>
+</html>
 
