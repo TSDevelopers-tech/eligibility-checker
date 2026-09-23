@@ -165,11 +165,11 @@
         });
       }
 
-      // TIER 2 (LIFESTYLE)
+      // LOCAL WEIGHT MANAGEMENT (LIFESTYLE)
       if (bmi >= 30 || (bmi >= 27.5 && data.ethnicity === "adjusted")) {
         services.push({
-          title: "Tier 2 Weight Management",
-          desc: "Local lifestyle weight management support.",
+          title: "Local Weight Management Support",
+          desc: "Community-based lifestyle support to help you manage your weight.",
           link: "https://www.nhs.uk/live-well/healthy-weight/",
           type: "lifestyle"
         });
@@ -185,30 +185,30 @@
         });
       }
 
-      // TIER 3 (LIFESTYLE + MEDICAL INPUT)
+      // SPECIALIST WEIGHT MANAGEMENT (LIFESTYLE + CLINICAL INPUT)
       if (bmi >= 35 && (data.t2dm || data.hypertension)) {
         services.push({
-          title: "Tier 3 Specialist Weight Management",
-          desc: "Clinically-led specialist support for complex obesity.",
+          title: "Specialist Weight Management Service",
+          desc: "Clinically-led support for people with more complex weight-related health needs.",
           link: "https://www.nhs.uk/conditions/obesity/treatment/",
           type: "lifestyle"
         });
       }
 
-      // MEDICATION (MEDICATION)
+      // MEDICATION & LIFESTYLE
       if (bmi >= 35 && data.t2dm) {
         services.push({
           title: "Weight Loss Medication (Wegovy / Mounjaro)",
-          desc: "You may meet criteria for NHS obesity medicines.",
+          desc: "You may meet criteria for NHS weight loss medicines, alongside lifestyle support.",
           link: "https://www.nhs.uk/medicines/weight-loss-medicines/",
           type: "medication"
         });
       }
 
-      // TIER 4 SURGERY (SURGERY)
+      // SURGERY
       if (bmi >= 40 || (bmi >= 35 && data.surgeryBarrier)) {
         services.push({
-          title: "Tier 4 Bariatric Surgery Assessment",
+          title: "Weight Loss Surgery Assessment",
           desc: "Assessment for surgical weight loss options.",
           link: "https://www.nhs.uk/conditions/weight-loss-surgery/",
           type: "surgery"
@@ -219,7 +219,7 @@
 
       const badgeMap = {
         lifestyle: '<span class="badge badge-lifestyle">Lifestyle</span>',
-        medication: '<span class="badge badge-medication">Medication</span>',
+        medication: '<span class="badge badge-medication">Medication & Lifestyle</span>',
         surgery: '<span class="badge badge-surgery">Surgery</span>'
       };
 
