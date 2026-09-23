@@ -65,30 +65,35 @@
       gap:1rem;
     }
 
-    /* CLEANER CHECKBOX LAYOUT */
-    .checkbox-group {
+    fieldset {
+      border:1px solid #D8DDE0;
+      border-radius:6px;
+      padding:1rem 1.2rem;
       margin-top:0.5rem;
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:0.4rem 0.4rem; /* tighter spacing */
     }
 
-    .checkbox-group label {
-      font-weight:normal;
-      color:#425563;
+    legend {
+      padding:0 0.4rem;
+      font-weight:bold;
+      color:#003087;
+    }
+
+    .checkbox-list {
+      margin-top:0.5rem;
+    }
+
+    .checkbox-item {
       display:flex;
       align-items:flex-start;
-      gap:0.3rem; /* tighter gap between box + text */
-      line-height:1.25;
-      padding-left:0.1rem; /* pulls text left */
-      margin:0; /* removes extra spacing */
+      gap:0.4rem;
+      margin-bottom:0.4rem;
+      color:#425563;
+      font-size:0.95rem;
+      line-height:1.3;
     }
 
-    /* Mobile fix */
-    @media (max-width: 700px) {
-      .checkbox-group {
-        grid-template-columns:1fr;
-      }
+    .checkbox-item input {
+      margin-top:0.15rem;
     }
 
     button {
@@ -135,6 +140,12 @@
       margin-bottom:1rem;
       font-size:0.95rem;
       display:none;
+    }
+
+    @media (max-width: 700px) {
+      .grid {
+        grid-template-columns:1fr;
+      }
     }
   </style>
 </head>
@@ -186,30 +197,81 @@
     <h2>Your Health Conditions</h2>
     <p class="section-desc">These conditions help determine eligibility for digital programmes, Tier 2, Tier 3, and Tier 4 services.</p>
 
-    <div class="checkbox-group">
-      <label><input type="checkbox" id="t1dm"> Type 1 diabetes</label>
-      <label><input type="checkbox" id="t2dm"> Type 2 diabetes</label>
-      <label><input type="checkbox" id="prediabetes"> Prediabetes</label>
-      <label><input type="checkbox" id="gestational"> Previous gestational diabetes</label>
-      <label><input type="checkbox" id="hypertension"> High blood pressure</label>
-      <label><input type="checkbox" id="cvd"> Cardiovascular disease</label>
-      <label><input type="checkbox" id="sleepApnoea"> Sleep apnoea</label>
-      <label><input type="checkbox" id="lipids"> Abnormal blood fats</label>
-    </div>
+    <fieldset>
+      <legend>Health conditions</legend>
+      <div class="checkbox-list">
+        <div class="checkbox-item">
+          <input type="checkbox" id="t1dm">
+          <label for="t1dm">Type 1 diabetes</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="t2dm">
+          <label for="t2dm">Type 2 diabetes</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="prediabetes">
+          <label for="prediabetes">Prediabetes</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="gestational">
+          <label for="gestational">Previous gestational diabetes</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="hypertension">
+          <label for="hypertension">High blood pressure</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="cvd">
+          <label for="cvd">Cardiovascular disease</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="sleepApnoea">
+          <label for="sleepApnoea">Sleep apnoea</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="lipids">
+          <label for="lipids">Abnormal blood fats</label>
+        </div>
+      </div>
+    </fieldset>
 
     <!-- SECTION 3: SPECIALIST CONDITIONS -->
     <h2>Specialist Clinical Conditions</h2>
     <p class="section-desc">These conditions are used for Tier 3 medication eligibility (Wegovy, Mounjaro) and Tier 4 surgery.</p>
 
-    <div class="checkbox-group">
-      <label><input type="checkbox" id="precancer"> Precancerous or cancer-related condition</label>
-      <label><input type="checkbox" id="transplant"> Weight loss required before organ transplant</label>
-      <label><input type="checkbox" id="iih"> Idiopathic intracranial hypertension (IIH)</label>
-      <label><input type="checkbox" id="surgeryBarrier"> BMI is a barrier to life‑limiting surgery</label>
-      <label><input type="checkbox" id="fertility"> Weight loss required for fertility treatment</label>
-      <label><input type="checkbox" id="genetic"> Proven genetic cause of obesity</label>
-      <label><input type="checkbox" id="severeOSA"> Severe obstructive sleep apnoea (on CPAP)</label>
-    </div>
+    <fieldset>
+      <legend>Specialist conditions</legend>
+      <div class="checkbox-list">
+        <div class="checkbox-item">
+          <input type="checkbox" id="precancer">
+          <label for="precancer">Precancerous or cancer-related condition</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="transplant">
+          <label for="transplant">Weight loss required before organ transplant</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="iih">
+          <label for="iih">Idiopathic intracranial hypertension (IIH)</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="surgeryBarrier">
+          <label for="surgeryBarrier">BMI is a barrier to life‑limiting surgery</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="fertility">
+          <label for="fertility">Weight loss required for fertility treatment</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="genetic">
+          <label for="genetic">Proven genetic cause of obesity</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="severeOSA">
+          <label for="severeOSA">Severe obstructive sleep apnoea (on CPAP)</label>
+        </div>
+      </div>
+    </fieldset>
 
     <button class="back-btn" onclick="location.href='index.html'">Back</button>
     <button onclick="saveAndContinue()">See My Results</button>
@@ -218,6 +280,7 @@
   <script>
     function showError(message) {
       const box = document.getElementById("errorBox");
+      if (!box) return;
       box.style.display = "block";
       box.textContent = message;
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -229,7 +292,6 @@
       const height = document.getElementById("height").value;
       const weight = document.getElementById("weight").value;
 
-      // VALIDATION
       if (!age || age < 16 || age > 120) {
         showError("Please enter a valid age (16–120).");
         return;
@@ -249,8 +311,6 @@
         showError("Please enter a valid weight in kilograms.");
         return;
       }
-
-      document.getElementById("errorBox").style.display = "none";
 
       const fields = [
         "age","ethnicity","height","weight",
