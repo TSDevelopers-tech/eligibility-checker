@@ -1,68 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>About You</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body { font-family: Arial; margin: 40px; }
-label { display: block; margin-top: 15px; }
-input { padding: 8px; width: 250px; }
-button { margin-top: 25px; padding: 12px 20px; font-size: 18px; }
-</style>
+  <meta charset="UTF-8">
+  <title>Your Details</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial, sans-serif; background:#f5f7fb; margin:0; padding:0; }
+    .container { max-width:900px; margin:2rem auto; background:#fff; padding:2rem;
+      border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
+    h1 { margin-top:0; }
+    label { font-weight:bold; display:block; margin-top:1rem; }
+    input, select { width:100%; padding:0.5rem; margin-top:0.3rem; }
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .checkbox-group { margin-top:0.5rem; }
+    .checkbox-group label { font-weight:normal; display:flex; gap:0.5rem; }
+    button {
+      background:#005eb8; color:#fff; border:none; padding:0.8rem 1.4rem;
+      font-size:1rem; border-radius:6px; cursor:pointer; margin-top:2rem;
+    }
+    button:hover { background:#004a92; }
+  </style>
 </head>
-
 <body>
-<h1>About You</h1>
+  <div class="container">
+    <h1>About You</h1>
+    <p>Please answer the questions below so we can check your eligibility.</p>
 
-<label>Full Name</label>
-<input id="fullName" type="text">
+    <div class="grid">
+      <div>
+        <label>Age</label>
+        <input type="number" id="age" min="16" max="120">
+      </div>
+      <div>
+        <label>Ethnic background</label>
+        <select id="ethnicity">
+          <option value="">Select</option>
+          <option value="standard">White European / Other</option>
+          <option value="adjusted">Asian, Middle Eastern, Black African, African‑Caribbean</option>
+        </select>
+      </div>
+    </div>
 
-<label>Age</label>
-<input id="age" type="number">
+    <div class="grid">
+      <div>
+        <label>Height (cm)</label>
+        <input type="number" id="height">
+      </div>
+      <div>
+        <label>Weight (kg)</label>
+        <input type="number" id="weight">
+      </div>
+    </div>
 
-<label>Height (cm)</label>
-<input id="height" type="number">
+    <h2>Health Conditions</h2>
 
-<label>Weight (kg)</label>
-<input id="weight" type="number">
+    <div class="checkbox-group">
+      <label><input type="checkbox" id="t1dm"> Type 1 diabetes</label>
+      <label><input type="checkbox" id="t2dm"> Type 2 diabetes</label>
+      <label><input type="checkbox" id="prediabetes"> Prediabetes</label>
+      <label><input type="checkbox" id="gestational"> Previous gestational diabetes</label>
+      <label><input type="checkbox" id="hypertension"> High blood pressure</label>
+      <label><input type="checkbox" id="cvd"> Cardiovascular disease</label>
+      <label><input type="checkbox" id="sleepApnoea"> Sleep apnoea</label>
+      <label><input type="checkbox" id="lipids"> Abnormal blood fats</label>
+    </div>
 
-<label>Waist (cm)</label>
-<input id="waist" type="number">
+    <h2>Specialist Conditions</h2>
 
-<label>Hip (cm)</label>
-<input id="hip" type="number">
+    <div class="checkbox-group">
+      <label><input type="checkbox" id="precancer"> Precancerous/cancer condition</label>
+      <label><input type="checkbox" id="transplant"> Weight loss required before transplant</label>
+      <label><input type="checkbox" id="iih"> Idiopathic intracranial hypertension</label>
+      <label><input type="checkbox" id="surgeryBarrier"> BMI is barrier to life‑limiting surgery</label>
+      <label><input type="checkbox" id="fertility"> Weight loss required for fertility treatment</label>
+      <label><input type="checkbox" id="genetic"> Proven genetic obesity</label>
+      <label><input type="checkbox" id="severeOSA"> Severe OSA on CPAP</label>
+    </div>
 
-<h3>Medical Conditions</h3>
-<label><input type="checkbox" value="southAsian" class="cond"> South Asian background</label>
-<label><input type="checkbox" value="hypertension" class="cond"> Hypertension</label>
-<label><input type="checkbox" value="diabetes" class="cond"> Diabetes</label>
+    <button onclick="saveAndContinue()">See Results</button>
+  </div>
 
-<button onclick="saveAndContinue()">Show Results</button>
+  <script>
+    function saveAndContinue() {
+      const fields = [
+        "age","ethnicity","height","weight",
+        "t1dm","t2dm","prediabetes","gestational",
+        "hypertension","cvd","sleepApnoea","lipids",
+        "precancer","transplant","iih","surgeryBarrier",
+        "fertility","genetic","severeOSA"
+      ];
 
-<script>
-function saveAndContinue() {
-    const fullName = document.getElementById("fullName").value;
-    const age = document.getElementById("age").value;
-    const height = document.getElementById("height").value;
-    const weight = document.getElementById("weight").value;
-    const waist = document.getElementById("waist").value;
-    const hip = document.getElementById("hip").value;
+      const data = {};
+      fields.forEach(id => {
+        const el = document.getElementById(id);
+        data[id] = el.type === "checkbox" ? el.checked : el.value;
+      });
 
-    const conditions = [];
-    document.querySelectorAll(".cond:checked").forEach(c => conditions.push(c.value));
-
-    localStorage.setItem("fullName", fullName);
-    localStorage.setItem("age", age);
-    localStorage.setItem("height", height);
-    localStorage.setItem("weight", weight);
-    localStorage.setItem("waist", waist);
-    localStorage.setItem("hip", hip);
-    localStorage.setItem("conditions", JSON.stringify(conditions));
-
-    location.href = "results.html";
-}
-</script>
-
+      localStorage.setItem("wmData", JSON.stringify(data));
+      location.href = "results.html";
+    }
+  </script>
 </body>
 </html>
