@@ -2,42 +2,130 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Your Details</title>
+  <title>About You</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    <style>
-  body { font-family: Arial, sans-serif; background:#E8F1F8; margin:0; padding:0; }
-  .container {
-    max-width:900px; margin:2rem auto; background:#fff; padding:2rem;
-    border-radius:8px; border:1px solid #D8DDE0;
-  }
-  h1, h2 { color:#005EB8; margin-top:0; }
-  label { font-weight:bold; color:#003087; display:block; margin-top:1rem; }
-  input, select {
-    width:100%; padding:0.5rem; margin-top:0.3rem;
-    border:1px solid #D8DDE0; border-radius:4px;
-  }
-  .grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
-  .checkbox-group label { font-weight:normal; color:#425563; }
-  button {
-    background:#005EB8; color:#fff; border:none; padding:0.8rem 1.4rem;
-    font-size:1rem; border-radius:6px; cursor:pointer; margin-top:2rem;
-  }
-  button:hover { background:#003087; }
-</style>
 
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background:#E8F1F8;
+      margin:0;
+      padding:0;
+    }
+
+    .container {
+      max-width:900px;
+      margin:2rem auto;
+      background:#fff;
+      padding:2rem;
+      border-radius:8px;
+      border:1px solid #D8DDE0;
+    }
+
+    h1 {
+      color:#005EB8;
+      margin-top:0;
+      margin-bottom:1rem;
+    }
+
+    h2 {
+      color:#003087;
+      margin-top:2rem;
+      margin-bottom:0.5rem;
+      border-bottom:2px solid #D8DDE0;
+      padding-bottom:0.3rem;
+    }
+
+    p.section-desc {
+      color:#425563;
+      margin-top:0;
+      margin-bottom:1rem;
+      font-size:0.95rem;
+    }
+
+    label {
+      font-weight:bold;
+      color:#003087;
+      display:block;
+      margin-top:1rem;
+    }
+
+    input, select {
+      width:100%;
+      padding:0.6rem;
+      margin-top:0.3rem;
+      border:1px solid #D8DDE0;
+      border-radius:4px;
+      font-size:1rem;
+    }
+
+    .grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:1rem;
+    }
+
+    .checkbox-group {
+      margin-top:0.5rem;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:0.5rem 1rem;
+    }
+
+    .checkbox-group label {
+      font-weight:normal;
+      color:#425563;
+      display:flex;
+      gap:0.5rem;
+      align-items:flex-start;
+    }
+
+    button {
+      background:#005EB8;
+      color:#fff;
+      border:none;
+      padding:0.9rem 1.6rem;
+      font-size:1rem;
+      border-radius:6px;
+      cursor:pointer;
+      margin-top:2rem;
+    }
+
+    button:hover {
+      background:#003087;
+    }
+
+    .info-box {
+      background:#F0F7FF;
+      border-left:4px solid #005EB8;
+      padding:1rem;
+      border-radius:4px;
+      color:#003087;
+      margin-bottom:1.5rem;
+      font-size:0.95rem;
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
-    <h1>About You</h1>
-    <p>Please answer the questions below so we can check your eligibility.</p>
+    <h1>Tell Us About You</h1>
+
+    <div class="info-box">
+      This information helps us check which NHS and local weight‑management services you may be eligible for.
+      Your answers are not stored permanently and are only used to generate your results.
+    </div>
+
+    <!-- SECTION 1: BASIC DETAILS -->
+    <h2>Your Details</h2>
+    <p class="section-desc">These details help us calculate your BMI and apply the correct eligibility thresholds.</p>
 
     <div class="grid">
       <div>
         <label>Age</label>
-        <input type="number" id="age" min="16" max="120">
+        <input type="number" id="age" min="16" max="120" placeholder="e.g. 45">
       </div>
+
       <div>
         <label>Ethnic background</label>
         <select id="ethnicity">
@@ -51,15 +139,18 @@
     <div class="grid">
       <div>
         <label>Height (cm)</label>
-        <input type="number" id="height">
+        <input type="number" id="height" placeholder="e.g. 170">
       </div>
+
       <div>
         <label>Weight (kg)</label>
-        <input type="number" id="weight">
+        <input type="number" id="weight" placeholder="e.g. 95">
       </div>
     </div>
 
-    <h2>Health Conditions</h2>
+    <!-- SECTION 2: HEALTH CONDITIONS -->
+    <h2>Your Health Conditions</h2>
+    <p class="section-desc">These conditions help determine eligibility for digital programmes, Tier 2, Tier 3, and Tier 4 services.</p>
 
     <div class="checkbox-group">
       <label><input type="checkbox" id="t1dm"> Type 1 diabetes</label>
@@ -72,19 +163,21 @@
       <label><input type="checkbox" id="lipids"> Abnormal blood fats</label>
     </div>
 
-    <h2>Specialist Conditions</h2>
+    <!-- SECTION 3: SPECIALIST CONDITIONS -->
+    <h2>Specialist Clinical Conditions</h2>
+    <p class="section-desc">These conditions are used for Tier 3 medication eligibility (Wegovy, Mounjaro) and Tier 4 surgery.</p>
 
     <div class="checkbox-group">
-      <label><input type="checkbox" id="precancer"> Precancerous/cancer condition</label>
-      <label><input type="checkbox" id="transplant"> Weight loss required before transplant</label>
-      <label><input type="checkbox" id="iih"> Idiopathic intracranial hypertension</label>
-      <label><input type="checkbox" id="surgeryBarrier"> BMI is barrier to life‑limiting surgery</label>
+      <label><input type="checkbox" id="precancer"> Precancerous or cancer-related condition</label>
+      <label><input type="checkbox" id="transplant"> Weight loss required before organ transplant</label>
+      <label><input type="checkbox" id="iih"> Idiopathic intracranial hypertension (IIH)</label>
+      <label><input type="checkbox" id="surgeryBarrier"> BMI is a barrier to life‑limiting surgery</label>
       <label><input type="checkbox" id="fertility"> Weight loss required for fertility treatment</label>
-      <label><input type="checkbox" id="genetic"> Proven genetic obesity</label>
-      <label><input type="checkbox" id="severeOSA"> Severe OSA on CPAP</label>
+      <label><input type="checkbox" id="genetic"> Proven genetic cause of obesity</label>
+      <label><input type="checkbox" id="severeOSA"> Severe obstructive sleep apnoea (on CPAP)</label>
     </div>
 
-    <button onclick="saveAndContinue()">See Results</button>
+    <button onclick="saveAndContinue()">See My Results</button>
   </div>
 
   <script>
