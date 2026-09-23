@@ -143,7 +143,7 @@
       const services = [];
 
       /* DIGITAL WMP */
-      if (bmi >= 25 && (data.t1dm || data.t2dm)) {
+      if (bmi >= 25 && (data.t1dm || data.t2dm || data.hypertension)) {
         services.push({
           title: "NHS Digital Weight Management Programme",
           desc: "A 12-week online programme to support weight loss.",
