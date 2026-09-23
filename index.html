@@ -3,40 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adult Weight Management Services – Eligibility Checker</title>
+    <title>NHS Adult Weight Management – Eligibility Checker</title>
+
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; background: #f5f5f5; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f0f4f5;
+        }
+
+        .nhs-header {
+            background: #005EB8;
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+
         .container {
-            max-width: 900px; margin: 30px auto; background: #ffffff;
-            padding: 20px 25px; border-radius: 10px;
+            max-width: 900px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        h1, h2 { text-align: center; }
-        label { font-weight: bold; margin-top: 15px; display: block; }
-        select, input[type="number"] { width: 100%; padding: 8px; margin-top: 8px; }
-        .checkbox-group label { font-weight: normal; display: block; margin-top: 5px; }
+
+        h1, h2 {
+            color: #005EB8;
+            margin-top: 0;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 15px;
+            display: block;
+        }
+
+        select, input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .checkbox-group label {
+            font-weight: normal;
+            display: block;
+            margin-top: 5px;
+        }
+
         button {
-            background: #0078D4; color: #fff; border: none; border-radius: 5px;
-            padding: 10px 15px; margin-top: 20px; cursor: pointer;
+            background: #005EB8;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 12px 18px;
+            margin-top: 25px;
+            cursor: pointer;
+            font-size: 16px;
         }
-        button:hover { background: #005A9E; }
+
+        button:hover {
+            background: #003f7d;
+        }
+
         .result {
-            margin-top: 30px; padding: 20px; background: #e8f4ff;
-            border-left: 5px solid #0078D4;
+            margin-top: 30px;
+            padding: 20px;
+            background: #e8f4ff;
+            border-left: 6px solid #005EB8;
+            border-radius: 4px;
         }
-        .service { margin-bottom: 15px; }
-        .service h3 { margin: 0 0 5px 0; }
-        .tag { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 12px; margin-right: 5px; }
+
+        .service {
+            margin-bottom: 25px;
+            padding: 15px;
+            background: #f7f9fa;
+            border-radius: 6px;
+            border-left: 4px solid #005EB8;
+        }
+
+        .service h3 {
+            margin: 0 0 10px 0;
+            color: #005EB8;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 5px;
+            margin-bottom: 10px;
+        }
+
         .tag-lifestyle { background:#d4f4d4; }
         .tag-medication { background:#ffe4b3; }
         .tag-surgery { background:#f8c4c4; }
+
+        .why-box {
+            background: #e8f4ff;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            border-left: 4px solid #005EB8;
+        }
+
         small { color:#555; }
     </style>
 </head>
+
 <body>
+
+<div class="nhs-header">
+    <h1>NHS Adult Weight Management Services</h1>
+    <p>Eligibility Checker</p>
+</div>
+
 <div class="container">
-    <h1>Adult Weight Management Services</h1>
-    <p style="text-align:center;">Eligibility checker based on Surrey & Sussex adult weight management pathways.</p>
 
     <h2>Your details</h2>
 
@@ -51,230 +136,4 @@
         <option value="blackAfrican">Black African</option>
         <option value="africanCaribbean">African-Caribbean</option>
     </select>
-    <small>*BMI thresholds are reduced by 2.5 for Asian, Middle Eastern, Black African or African-Caribbean backgrounds.</small>
-
-    <label for="diabetesStatus">Diabetes status</label>
-    <select id="diabetesStatus">
-        <option value="none">No diabetes</option>
-        <option value="type1">Type 1 diabetes</option>
-        <option value="type2">Type 2 diabetes</option>
-        <option value="prediabetes">Prediabetes</option>
-        <option value="gestationalHistory">Previous gestational diabetes</option>
-    </select>
-
-    <label>Blood pressure</label>
-    <div class="checkbox-group">
-        <label><input type="checkbox" id="highBP"> High blood pressure</label>
-    </div>
-
-    <label>Cardiometabolic conditions</label>
-    <div class="checkbox-group">
-        <label><input type="checkbox" id="cvd"> Cardiovascular disease</label>
-        <label><input type="checkbox" id="sleepApnoea"> Obstructive sleep apnoea</label>
-        <label><input type="checkbox" id="abnormalFats"> Abnormal blood fats</label>
-        <label><input type="checkbox" id="masld"> MASLD</label>
-    </div>
-
-    <label>Qualifying conditions (Wegovy)</label>
-    <div class="checkbox-group">
-        <label><input type="checkbox" id="precancer"> Precancerous/cancerous condition</label>
-        <label><input type="checkbox" id="transplant"> Weight loss needed before organ transplant</label>
-        <label><input type="checkbox" id="iih"> Idiopathic intracranial hypertension</label>
-        <label><input type="checkbox" id="awaitingSurgery"> Awaiting surgery where BMI is barrier</label>
-        <label><input type="checkbox" id="fertility"> Weight loss needed before fertility treatment</label>
-        <label><input type="checkbox" id="geneticObesity"> Genetic cause of obesity</label>
-        <label><input type="checkbox" id="severeOSA"> Severe OSA on CPAP</label>
-    </div>
-
-    <label>Tier 2 engagement</label>
-    <div class="checkbox-group">
-        <label><input type="checkbox" id="completedTier2"> Completed Tier 2</label>
-        <label><input type="checkbox" id="lostFivePercent"> Achieved ≥5% weight loss</label>
-    </div>
-
-    <button onclick="checkEligibility()">Check services you may be eligible for</button>
-
-    <div id="result" class="result" style="display:none;"></div>
-</div>
-
-<script>
-function adjustedBMI(rawBMI, ethnicity) {
-    if (!rawBMI || isNaN(rawBMI)) return null;
-    const lowerEthnicities = ["asian","middleEastern","blackAfrican","africanCaribbean"];
-    return lowerEthnicities.includes(ethnicity) ? rawBMI - 2.5 : rawBMI;
-}
-
-function checkEligibility() {
-    const bmiInput = parseFloat(document.getElementById("bmi").value);
-    const ethnicity = document.getElementById("ethnicity").value;
-    const bmi = adjustedBMI(bmiInput, ethnicity);
-
-    const diabetesStatus = document.getElementById("diabetesStatus").value;
-    const highBP = document.getElementById("highBP").checked;
-    const cvd = document.getElementById("cvd").checked;
-    const sleepApnoea = document.getElementById("sleepApnoea").checked;
-    const abnormalFats = document.getElementById("abnormalFats").checked;
-    const masld = document.getElementById("masld").checked;
-
-    const precancer = document.getElementById("precancer").checked;
-    const transplant = document.getElementById("transplant").checked;
-    const iih = document.getElementById("iih").checked;
-    const awaitingSurgery = document.getElementById("awaitingSurgery").checked;
-    const fertility = document.getElementById("fertility").checked;
-    const geneticObesity = document.getElementById("geneticObesity").checked;
-    const severeOSA = document.getElementById("severeOSA").checked;
-
-    const completedTier2 = document.getElementById("completedTier2").checked;
-    const lostFivePercent = document.getElementById("lostFivePercent").checked;
-
-    const resultDiv = document.getElementById("result");
-    resultDiv.style.display = "block";
-
-    if (!bmi) {
-        resultDiv.innerHTML = "<h2>Your results</h2><p>Please enter a valid BMI.</p>";
-        return;
-    }
-
-    // ⭐ NEW RULE: BMI < 25 → no services available
-    if (bmi < 25) {
-        resultDiv.innerHTML = `
-            <h2>Your results</h2>
-            <p>Your adjusted BMI is <strong>${bmi.toFixed(1)}</strong>.</p>
-            <p>No adult weight management services are available for BMI below 25.</p>
-            <p>You may still benefit from general lifestyle resources such as <strong>Better Health</strong>.</p>
-        `;
-        return;
-    }
-
-    let services = [];
-
-    // NHS Digital WMP
-    if (bmi >= 30 && (diabetesStatus === "type1" || diabetesStatus === "type2" || highBP)) {
-        services.push({
-            name: "NHS Digital Weight Management Programme",
-            tags: ["Lifestyle support"],
-            description: "12-week digital programme via GP/pharmacy referral.",
-            criteria: "BMI ≥30 + diabetes or high blood pressure."
-        });
-    }
-
-    // Tier 2
-    if (bmi >= 25 && bmi <= 40) {
-        services.push({
-            name: "West Sussex Wellbeing – Tier 2",
-            tags: ["Lifestyle support"],
-            description: "12-week in-person or virtual programme.",
-            criteria: "BMI 25–40."
-        });
-    }
-    if (bmi > 25) {
-        services.push({
-            name: "GroHealth – Tier 2",
-            tags: ["Lifestyle support"],
-            description: "12-month digital programme.",
-            criteria: "BMI >25."
-        });
-    }
-    services.push({
-        name: "Better Health",
-        tags: ["Lifestyle support"],
-        description: "National healthy lifestyle resources.",
-        criteria: "Available to all."
-    });
-
-    // Diabetes Prevention Programme
-    if (diabetesStatus === "prediabetes" || diabetesStatus === "gestationalHistory") {
-        services.push({
-            name: "NHS Diabetes Prevention Programme",
-            tags: ["Lifestyle support"],
-            description: "Structured support via GP or self-referral.",
-            criteria: "Prediabetes or previous gestational diabetes."
-        });
-    }
-
-    // Wegovy
-    const wegovyQualifiers = [
-        precancer, transplant, iih, awaitingSurgery,
-        fertility, geneticObesity, severeOSA
-    ].filter(Boolean).length;
-
-    if (bmi >= 35 && wegovyQualifiers >= 1) {
-        services.push({
-            name: "Wegovy – Tier 3",
-            tags: ["Medication + lifestyle support"],
-            description: "Weekly injection + specialist support.",
-            criteria: "BMI ≥35 + ≥1 qualifying condition."
-        });
-    }
-
-    // Mounjaro
-    const mounjaroConditions = [
-        cvd, highBP, abnormalFats, sleepApnoea, (diabetesStatus === "type2")
-    ].filter(Boolean).length;
-
-    if (bmi >= 35 && mounjaroConditions >= 4) {
-        services.push({
-            name: "Mounjaro – GP + BSOP",
-            tags: ["Medication + lifestyle support"],
-            description: "Weekly injection + mandatory behavioural support.",
-            criteria: "BMI ≥35 + 4 of 5 cardiometabolic conditions."
-        });
-    }
-
-    // Bariatric surgery
-    if (bmi > 50) {
-        services.push({
-            name: "Bariatric surgery – Tier 4 (first-line)",
-            tags: ["Surgery"],
-            description: "Surgical weight loss.",
-            criteria: "BMI >50."
-        });
-    }
-    if (bmi >= 40 || (bmi >= 35 && (cvd || highBP || iih || masld || sleepApnoea || diabetesStatus === "type2"))) {
-        services.push({
-            name: "Bariatric surgery – Tier 4",
-            tags: ["Surgery"],
-            description: "Surgical weight loss via GP referral.",
-            criteria: "BMI ≥40 or BMI ≥35 + obesity-related conditions."
-        });
-    }
-
-    // Tier 3 MoreLife/Oviva
-    const tier3Eligible =
-        completedTier2 &&
-        !lostFivePercent &&
-        (
-            bmi > 40 ||
-            (bmi > 35 && (highBP || cvd || sleepApnoea)) ||
-            (bmi > 30 && diabetesStatus === "type2")
-        );
-
-    if (tier3Eligible) {
-        services.push({
-            name: "Tier 3 – MoreLife / Oviva",
-            tags: ["Lifestyle support"],
-            description: "12-month specialist programme.",
-            criteria: "Completed Tier 2 without ≥5% loss + BMI criteria."
-        });
-    }
-
-    if (services.length === 0) {
-        resultDiv.innerHTML = "<h2>Your results</h2><p>No specific services matched your criteria.</p>";
-        return;
-    }
-
-    let html = "<h2>Your results</h2>";
-    services.forEach(s => {
-        html += `<div class="service">
-            <h3>${s.name}</h3>
-            <div>${s.tags.map(t => `<span class="tag ${t === "Lifestyle support" ? "tag-lifestyle" : t === "Medication + lifestyle support" ? "tag-medication" : "tag-surgery"}">${t}</span>`).join("")}</div>
-            <p>${s.description}</p>
-            <small><strong>Criteria:</strong> ${s.criteria}</small>
-        </div>`;
-    });
-
-    resultDiv.innerHTML = html;
-}
-</script>
-</body>
-</html>
+    <small>*BMI thresholds are reduced by 2.5 for Asian, Middle Eastern, Black African or African-Caribbean
