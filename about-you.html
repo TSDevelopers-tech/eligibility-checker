@@ -220,7 +220,7 @@
         <div class="checkbox-item"><input type="checkbox" id="t2dm"><label for="t2dm">Type 2 diabetes</label></div>
         <div class="checkbox-item"><input type="checkbox" id="prediabetes"><label for="prediabetes">Prediabetes</label></div>
         <div class="checkbox-item"><input type="checkbox" id="gestational"><label for="gestational">Previous gestational diabetes</label></div>
-        <div class="checkbox-item"><input type="checkbox" id="hypertension"><label for="hypertension">High blood pressure</label></div>
+        <div class="checkbox-item"><input type="checkbox" id="hypertension"><label for="hypertension">High blood pressure (hypertension)</label></div>
         <div class="checkbox-item"><input type="checkbox" id="cvd"><label for="cvd">Cardiovascular disease</label></div>
         <div class="checkbox-item"><input type="checkbox" id="sleepApnoea"><label for="sleepApnoea">Sleep apnoea</label></div>
         <div class="checkbox-item"><input type="checkbox" id="lipids"><label for="lipids">Abnormal blood fats</label></div>
@@ -298,7 +298,7 @@
         if (el.type === "checkbox") {
           data[id] = el.checked;
         } else {
-          data[id] = Number(el.value);   /* FIX APPLIED HERE */
+          data[id] = Number(el.value);
         }
       });
 
