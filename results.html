@@ -137,6 +137,10 @@
   <script>
     const data = JSON.parse(localStorage.getItem("wmData") || "{}");
 
+    /* Ensure height/weight are numbers */
+    data.height = Number(data.height);
+    data.weight = Number(data.weight);
+
     function calculateBMI(weight, height) {
       return (weight / ((height / 100) ** 2)).toFixed(1);
     }
@@ -155,7 +159,7 @@
       const bmi = calculateBMI(data.weight, data.height);
       const services = [];
 
-      // DIGITAL WEIGHT MANAGEMENT (LIFESTYLE)
+      /* DIGITAL WEIGHT MANAGEMENT */
       if (bmi >= 25) {
         services.push({
           title: "NHS Digital Weight Management Programme",
@@ -165,8 +169,8 @@
         });
       }
 
-      // LOCAL WEIGHT MANAGEMENT (LIFESTYLE)
-      if (bmi >= 30 || (bmi >= 27.5 && data.ethnicity === "adjusted")) {
+      /* LOCAL WEIGHT MANAGEMENT */
+      if (bmi >= 30 || (bmi >= 27.5 && String(data.ethnicity).toLowerCase().trim() === "adjusted")) {
         services.push({
           title: "Local Weight Management Support",
           desc: "Community-based lifestyle support to help you manage your weight.",
@@ -175,7 +179,7 @@
         });
       }
 
-      // DIABETES PREVENTION (LIFESTYLE)
+      /* DIABETES PREVENTION */
       if (data.prediabetes || data.gestational) {
         services.push({
           title: "NHS Diabetes Prevention Programme",
@@ -185,7 +189,7 @@
         });
       }
 
-      // SPECIALIST WEIGHT MANAGEMENT (LIFESTYLE + CLINICAL INPUT)
+      /* SPECIALIST WEIGHT MANAGEMENT */
       if (bmi >= 35 && (data.t2dm || data.hypertension)) {
         services.push({
           title: "Specialist Weight Management Service",
@@ -195,7 +199,7 @@
         });
       }
 
-      // MEDICATION & LIFESTYLE
+      /* MEDICATION & LIFESTYLE */
       if (bmi >= 35 && data.t2dm) {
         services.push({
           title: "Weight Loss Medication (Wegovy / Mounjaro)",
@@ -205,7 +209,7 @@
         });
       }
 
-      // SURGERY
+      /* SURGERY */
       if (bmi >= 40 || (bmi >= 35 && data.surgeryBarrier)) {
         services.push({
           title: "Weight Loss Surgery Assessment",
