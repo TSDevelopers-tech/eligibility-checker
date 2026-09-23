@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eligibility Checker</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            margin-top: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 15px;
+            display: block;
+        }
+
+        select, input[type="number"], input[type="checkbox"], button {
+            margin-top: 10px;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            background: #0078D4;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background: #005A9E;
+        }
+
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            background: #e8f4ff;
+            border-left: 5px solid #0078D4;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Eligibility Checker</h1>
+
+    <label for="age">Select your age:</label>
+    <select id="age">
+        <option value="">Choose...</option>
+        <option value="under18">Under 18</option>
+        <option value="18to30">18–30</option>
+        <option value="30plus">30+</option>
+    </select>
+
+    <label for="bmi">Enter your BMI:</label>
+    <input type="number" id="bmi" placeholder="e.g., 27">
+
+    <label>
+        <input type="checkbox" id="disability">
+        I have a disability
+    </label>
+
+    <label for="employment">Employment status:</label>
+    <select id="employment">
+        <option value="">Choose...</option>
+        <option value="employed">Employed</option>
+        <option value="unemployed">Unemployed</option>
+        <option value="student">Student</option>
+    </select>
+
+    <button onclick="checkEligibility()">Check Eligibility</button>
+
+    <div id="result" class="result"></div>
+</div>
+
+<script>
+function checkEligibility() {
+    const age = document.getElementById("age").value;
+    const bmi = parseFloat(document.getElementById("bmi").value);
+    const disability = document.getElementById("disability").checked;
+    const employment = document.getElementById("employment").value;
+
+    let output = "<h2>Your Results</h2>";
+
+    // Example logic — you can customise this
+    if (age === "under18") {
+        output += "<p>✔ Eligible for Youth Support Programme</p>";
+    }
+
+    if (bmi > 30) {
+        output += "<p>✔ Eligible for Weight Management Support</p>";
+    }
+
+    if (employment === "unemployed") {
+        output += "<p>✔ Eligible for Employment Support Services</p>";
+    }
+
+    if (disability) {
+        output += "<p>✔ Eligible for Disability Support Services</p>";
+    }
+
+    if (output === "<h2>Your Results</h2>") {
+        output += "<p>No services matched your criteria.</p>";
+    }
+
+    const resultBox = document.getElementById("result");
+    resultBox.innerHTML = output;
+    resultBox.style.display = "block";
+}
+</script>
+
+</body>
+</html>
