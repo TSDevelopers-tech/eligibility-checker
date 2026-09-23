@@ -4,32 +4,77 @@
   <meta charset="UTF-8">
   <title>Your Results</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <style>
-  body { font-family: Arial, sans-serif; background:#E8F1F8; margin:0; padding:0; }
-  .container {
-    max-width:900px; margin:2rem auto; background:#fff; padding:2rem;
-    border-radius:8px; border:1px solid #D8DDE0;
-  }
-  h1 { color:#005EB8; margin-top:0; }
-  h3 { color:#003087; }
-  #bmiText { color:#425563; }
-  .service {
-    border-top:1px solid #D8DDE0; padding-top:1rem; margin-top:1rem;
-  }
-  .tag {
-    display:inline-block; padding:0.2rem 0.5rem; border-radius:4px;
-    font-size:0.8rem; margin-right:0.5rem;
-  }
-  .lifestyle { background:#E8F1F8; color:#00703C; }
-  .medication { background:#FFF4D8; color:#946200; }
-  .surgery { background:#FBE3E5; color:#DA291C; }
-  .referral {
-    background:#F0F7FF; border-left:4px solid #005EB8;
-    padding:0.8rem; margin-top:0.5rem; border-radius:4px;
-    color:#003087;
-  }
+    body {
+      font-family: Arial, sans-serif;
+      background:#E8F1F8;
+      margin:0;
+      padding:0;
+    }
+
+    .container {
+      max-width:900px;
+      margin:2rem auto;
+      background:#fff;
+      padding:2rem;
+      border-radius:8px;
+      border:1px solid #D8DDE0;
+    }
+
+    h1 {
+      color:#005EB8;
+      margin-top:0;
+    }
+
+    h3 {
+      color:#003087;
+      margin-bottom:0.3rem;
+    }
+
+    #bmiText {
+      color:#425563;
+      font-size:1rem;
+      margin-bottom:1.5rem;
+    }
+
+    .service {
+      border-top:1px solid #D8DDE0;
+      padding-top:1rem;
+      margin-top:1rem;
+    }
+
+    .tag {
+      display:inline-block;
+      padding:0.2rem 0.5rem;
+      border-radius:4px;
+      font-size:0.8rem;
+      margin-right:0.5rem;
+      margin-bottom:0.5rem;
+    }
+
+    .lifestyle { background:#E8F1F8; color:#00703C; }
+    .medication { background:#FFF4D8; color:#946200; }
+    .surgery { background:#FBE3E5; color:#DA291C; }
+
+    .referral {
+      background:#F0F7FF;
+      border-left:4px solid #005EB8;
+      padding:0.8rem;
+      margin-top:0.6rem;
+      border-radius:4px;
+      color:#003087;
+      font-size:0.9rem;
+    }
+
+    .footer-note {
+      margin-top:2rem;
+      font-size:0.85rem;
+      color:#425563;
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
     <h1>Your Eligibility Results</h1>
@@ -37,7 +82,7 @@
 
     <div id="results"></div>
 
-    <p style="margin-top:2rem; font-size:0.85rem; color:#666;">
+    <p class="footer-note">
       This checker is a simplified interpretation of the Surrey & Sussex adult weight management pathway.
       It does not replace medical advice.
     </p>
@@ -55,8 +100,8 @@
     const adjBMI = data.ethnicity === "adjusted" ? bmi - 2.5 : bmi;
 
     document.getElementById("bmiText").textContent =
-      bmi ? `BMI: ${bmi.toFixed(1)} (adjusted: ${adjBMI.toFixed(1)})` :
-      "BMI could not be calculated.";
+      bmi ? `BMI: ${bmi.toFixed(1)} (adjusted: ${adjBMI.toFixed(1)})`
+          : "BMI could not be calculated.";
 
     const results = [];
 
@@ -65,7 +110,8 @@
       results.push({
         name:"NHS Digital Weight Management Programme",
         type:"lifestyle",
-        desc:"12‑week digital programme for BMI ≥30 with diabetes or high blood pressure."
+        desc:"12‑week digital programme for BMI ≥30 with diabetes or high blood pressure.",
+        referral:"Referral is made by your GP or community pharmacy."
       });
     }
 
@@ -74,7 +120,8 @@
       results.push({
         name:"West Sussex Wellbeing (Tier 2)",
         type:"lifestyle",
-        desc:"12‑week course or GroHealth app for BMI ≥25."
+        desc:"12‑week course or GroHealth app for BMI ≥25.",
+        referral:"You can self‑refer directly via West Sussex Wellbeing."
       });
     }
 
@@ -83,7 +130,8 @@
       results.push({
         name:"NHS Diabetes Prevention Programme",
         type:"lifestyle",
-        desc:"Support for prediabetes or previous gestational diabetes."
+        desc:"Support for prediabetes or previous gestational diabetes.",
+        referral:"You can self‑refer to Healthier You (Xyla) or ask your GP to refer you."
       });
     }
 
@@ -96,7 +144,8 @@
       results.push({
         name:"Wegovy (Semaglutide) – Tier 3",
         type:"medication",
-        desc:"Weekly injection + lifestyle support for BMI ≥35 with qualifying condition."
+        desc:"Weekly injection + lifestyle support for BMI ≥35 with qualifying condition.",
+        referral:"Your GP must refer you to the specialist Tier 3 weight management service."
       });
     }
 
@@ -109,7 +158,8 @@
       results.push({
         name:"Mounjaro (Tirzepatide) – BSOP",
         type:"medication",
-        desc:"Weekly injection + mandatory behavioural support for BMI ≥35 + 4 qualifying conditions."
+        desc:"Weekly injection + mandatory behavioural support for BMI ≥35 + 4 qualifying conditions.",
+        referral:"Your GP must refer you into the NHS Behavioural Support for Obesity Prescribing Programme."
       });
     }
 
@@ -119,7 +169,8 @@
       results.push({
         name:"Bariatric Surgery (Tier 4)",
         type:"surgery",
-        desc:"Surgical option for BMI >50, or ≥40, or ≥35 with obesity‑related conditions."
+        desc:"Surgical option for BMI >50, or ≥40, or ≥35 with obesity‑related conditions.",
+        referral:"Referral is made by your GP to the regional bariatric surgery service."
       });
     }
 
@@ -130,7 +181,8 @@
       results.push({
         name:"Specialist Tier 3 Programme (MoreLife / Oviva)",
         type:"lifestyle",
-        desc:"12‑month specialist programme for higher BMI or Type 2 diabetes."
+        desc:"12‑month specialist programme for higher BMI or Type 2 diabetes.",
+        referral:"Your GP can refer you once you have completed Tier 2 without achieving 5% weight loss."
       });
     }
 
@@ -146,6 +198,7 @@
           <h3>${s.name}</h3>
           <span class="tag ${s.type}">${s.type}</span>
           <p>${s.desc}</p>
+          <div class="referral"><strong>How to access:</strong> ${s.referral}</div>
         `;
         container.appendChild(div);
       });
