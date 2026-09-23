@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NHS Adult Weight Management – About You</title>
+<style>
+    body { font-family: Arial, sans-serif; margin:0; background:#f0f4f5; }
+    .nhs-header { background:#005EB8; padding:20px; color:white; text-align:center; }
+    .container { max-width:900px; margin:30px auto; background:white; padding:25px; border-radius:8px; }
+    h1, h2 { color:#005EB8; }
+    label { font-weight:bold; margin-top:15px; display:block; }
+    select, input[type="number"] {
+        width:100%; padding:10px; margin-top:8px; border:1px solid #ccc; border-radius:4px;
+    }
+    .checkbox-group label { font-weight:normal; margin-top:5px; display:block; }
+    button {
+        background:#005EB8; color:white; padding:12px 18px;
+        border:none; border-radius:4px; font-size:18px; cursor:pointer;
+        margin-top:25px;
+    }
+    button:hover { background:#003f7d; }
+</style>
+</head>
+
+<body>
+
+<div class="nhs-header">
+    <h1>About You</h1>
+</div>
+
+<div class="container">
+
+    <h2>Your details</h2>
+
+    <label for="height">Height (cm)</label>
+    <input type="number" id="height" placeholder="e.g. 170">
+
+    <label for="weight">Weight (kg)</label>
+    <input type="number" id="weight" placeholder="e.g. 85">
+
+    <label for="ethnicity">Ethnic background</label>
+    <select id="ethnicity">
+        <option value="white">White / Other</option>
+        <option value="asian">Asian</option>
+        <option value="middleEastern">Middle Eastern</option>
+        <option value="blackAfrican">Black African</option>
+        <option value="africanCaribbean">African-Caribbean</option>
+    </select>
+    <small>*BMI thresholds are reduced by 2.5 for Asian, Middle Eastern, Black African or African-Caribbean backgrounds.</small>
+
+    <label for="diabetesStatus">Diabetes status</label>
+    <select id="diabetesStatus">
+        <option value="none">No diabetes</option>
+        <option value="type1">Type 1 diabetes</option>
+        <option value="type2">Type 2 diabetes</option>
+        <option value="prediabetes">Prediabetes</option>
+        <option value="gestationalHistory">Previous gestational diabetes</option>
+    </select>
+
+    <label>Blood pressure</label>
+    <div class="checkbox-group">
+        <label><input type="checkbox" id="highBP"> High blood pressure</label>
+    </div>
+
+    <label>Cardiometabolic conditions</label>
+    <div class="checkbox-group">
+        <label><input type="checkbox" id="cvd"> Cardiovascular disease</label>
+        <label><input type="checkbox" id="sleepApnoea"> Obstructive sleep apnoea</label>
+        <label><input type="checkbox" id="abnormalFats"> Abnormal blood fats</label>
+        <label><input type="checkbox" id="masld"> MASLD</label>
+    </div>
+
+    <label>Qualifying conditions (Wegovy)</label>
+    <div class="checkbox-group">
+        <label><input type="checkbox" id="precancer"> Precancerous/cancerous condition</label>
+        <label><input type="checkbox" id="transplant"> Weight loss needed before organ transplant</label>
+        <label><input type="checkbox" id="iih"> Idiopathic intracranial hypertension</label>
+        <label><input type="checkbox" id="awaitingSurgery"> Awaiting surgery where BMI is barrier</label>
+        <label><input type="checkbox" id="fertility"> Weight loss needed before fertility treatment</label>
+        <label><input type="checkbox" id="geneticObesity"> Genetic cause of obesity</label>
+        <label><input type="checkbox" id="severeOSA"> Severe OSA on CPAP</label>
+    </div>
+
+    <label>Tier 2 engagement</label>
+    <div class="checkbox-group">
+        <label><input type="checkbox" id="completedTier2"> Completed Tier 2</label>
+        <label><input type="checkbox" id="lostFivePercent"> Achieved ≥5% weight loss</label>
+    </div>
+
+    <button onclick="goToResults()">See my results</button>
+
+</div>
+
+<script>
+function goToResults() {
+    const height = parseFloat(document.getElementById("height").value);
+    const weight = parseFloat(document.getElementById("weight").value);
+
+    if (!height || !weight) {
+        alert("Please enter height and weight.");
+        return;
+    }
+
+    const bmi = weight / ((height/100) ** 2);
+
+    const ethnicity = document.getElementById("ethnicity").value;
+    const adjustedBMI = ["asian","middleEastern","blackAfrican","africanCaribbean"].includes(ethnicity)
+        ? bmi - 2.5
+        : bmi;
+
+    const params = new URLSearchParams({
+        bmi: adjustedBMI.toFixed(1),
+        ethnicity,
+        diabetes: document.getElementById("diabetesStatus").value,
+        highBP: document.getElementById("highBP").checked,
+        cvd: document.getElementById("cvd").checked,
+        sleepApnoea: document.getElementById("sleepApnoea").checked,
+        abnormalFats: document.getElementById("abnormalFats").checked,
+        masld: document.getElementById("masld").checked,
+        precancer: document.getElementById("precancer").checked,
+        transplant: document.getElementById("transplant").checked,
+        iih: document.getElementById("iih").checked,
+        awaitingSurgery: document.getElementById("awaitingSurgery").checked,
+        fertility: document.getElementById("fertility").checked,
+        geneticObesity: document.getElementById("geneticObesity").checked,
+        severeOSA: document.getElementById("severeOSA").checked,
+        completedTier2: document.getElementById("completedTier2").checked,
+        lostFivePercent: document.getElementById("lostFivePercent").checked
+    });
+
+    location.href = "results.html?" + params.toString();
+}
+</script>
+
+</body>
+</html>
+
