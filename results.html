@@ -1,97 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Your Results</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body { font-family: Arial; margin: 40px; }
-h1 { margin-bottom: 10px; }
-p { font-size: 18px; margin-top: 10px; }
-strong { font-size: 20px; }
-</style>
+  <meta charset="UTF-8">
+  <title>Your Results</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial, sans-serif; background:#f5f7fb; margin:0; padding:0; }
+    .container { max-width:900px; margin:2rem auto; background:#fff; padding:2rem;
+      border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
+    h1 { margin-top:0; }
+    .service { border-top:1px solid #ddd; padding-top:1rem; margin-top:1rem; }
+    .tag { display:inline-block; padding:0.2rem 0.5rem; border-radius:4px; font-size:0.8rem; margin-right:0.5rem; }
+    .lifestyle { background:#e3f5eb; color:#00703c; }
+    .medication { background:#fff4d8; color:#946200; }
+    .surgery { background:#fbe3e5; color:#b10e1e; }
+  </style>
 </head>
-
 <body>
-<h1>Your Results</h1>
+  <div class="container">
+    <h1>Your Eligibility Results</h1>
+    <p id="bmiText"></p>
 
-<p><strong>Name:</strong> <span id="name"></span></p>
-<p><strong>BMI:</strong> <span id="bmi"></span></p>
-<p><strong>Adjusted BMI:</strong> <span id="adjusted"></span></p>
+    <div id="results"></div>
 
-<h2>Eligibility Result</h2>
-<p id="result"></p>
+    <p style="margin-top:2rem; font-size:0.85rem; color:#666;">
+      This checker is a simplified interpretation of the Surrey & Sussex adult weight management pathway.
+      It does not replace medical advice.
+    </p>
+  </div>
 
-<h3>Reason</h3>
-<p id="reason"></p>
+  <script>
+    const data = JSON.parse(localStorage.getItem("wmData") || "{}");
 
-<script>
-// --- Retrieve stored values ---
-const fullName = localStorage.getItem("fullName");
-const age = Number(localStorage.getItem("age"));
-const height = Number(localStorage.getItem("height"));
-const weight = Number(localStorage.getItem("weight"));
-const waist = Number(localStorage.getItem("waist"));
-const hip = Number(localStorage.getItem("hip"));
-const conditions = JSON.parse(localStorage.getItem("conditions") || "[]");
+    function bmiCalc(h, w) {
+      if (!h || !w) return null;
+      return w / ((h/100)**2);
+    }
 
-// --- Calculate BMI ---
-const bmi = weight / ((height / 100) ** 2);
-const bmiRounded = bmi.toFixed(1);
+    const bmi = bmiCalc(Number(data.height), Number(data.weight));
+    const adjBMI = data.ethnicity === "adjusted" ? bmi - 2.5 : bmi;
 
-// --- Adjusted BMI ---
-let adjustedBMI = bmi;
-if (conditions.includes("southAsian")) {
-    adjustedBMI = bmi + 2.5;
-}
-const adjustedRounded = adjustedBMI.toFixed(1);
+    document.getElementById("bmiText").textContent =
+      bmi ? `BMI: ${bmi.toFixed(1)} (adjusted: ${adjBMI.toFixed(1)})` :
+      "BMI could not be calculated.";
 
-// --- Eligibility Logic ---
-let eligible = false;
-let reason = "";
+    const results = [];
 
-// Rule 1: BMI ≥ 30
-if (adjustedBMI >= 30) {
-    eligible = true;
-    reason = "Your BMI is 30 or above.";
-}
+    // NHS Digital WMP
+    if (adjBMI >= 30 && (data.t1dm || data.t2dm || data.hypertension)) {
+      results.push({
+        name:"NHS Digital Weight Management Programme",
+        type:"lifestyle",
+        desc:"12‑week digital programme for BMI ≥30 with diabetes or high blood pressure."
+      });
+    }
 
-// Rule 2: BMI ≥ 27.5 for South Asian backgrounds
-if (!eligible && conditions.includes("southAsian") && adjustedBMI >= 27.5) {
-    eligible = true;
-    reason = "Your adjusted BMI is 27.5 or above for South Asian backgrounds.";
-}
+    // Tier 2 West Sussex Wellbeing
+    if (adjBMI >= 25 && adjBMI <= 40) {
+      results.push({
+        name:"West Sussex Wellbeing (Tier 2)",
+        type:"lifestyle",
+        desc:"12‑week course or GroHealth app for BMI ≥25."
+      });
+    }
 
-// Rule 3: Waist-to-hip ratio
-const whr = waist / hip;
-if (!eligible && whr > 0.85) {
-    eligible = true;
-    reason = "Your waist-to-hip ratio indicates increased health risk.";
-}
+    // NDPP
+    if (data.prediabetes || data.gestational) {
+      results.push({
+        name:"NHS Diabetes Prevention Programme",
+        type:"lifestyle",
+        desc:"Support for prediabetes or previous gestational diabetes."
+      });
+    }
 
-// Rule 4: Medical conditions
-if (!eligible && conditions.includes("hypertension")) {
-    eligible = true;
-    reason = "You reported hypertension.";
-}
-if (!eligible && conditions.includes("diabetes")) {
-    eligible = true;
-    reason = "You reported diabetes.";
-}
+    // Wegovy
+    const wegovyQual =
+      data.precancer || data.transplant || data.iih ||
+      data.surgeryBarrier || data.fertility || data.genetic || data.severeOSA;
 
-// --- Display Results ---
-document.getElementById("name").innerText = fullName || "User";
-document.getElementById("bmi").innerText = bmiRounded;
-document.getElementById("adjusted").innerText = adjustedRounded;
+    if (adjBMI >= 35 && wegovyQual) {
+      results.push({
+        name:"Wegovy (Semaglutide) – Tier 3",
+        type:"medication",
+        desc:"Weekly injection + lifestyle support for BMI ≥35 with qualifying condition."
+      });
+    }
 
-if (eligible) {
-    document.getElementById("result").innerText = "You are eligible for the NHS Weight Loss Service.";
-    document.getElementById("reason").innerText = reason;
-} else {
-    document.getElementById("result").innerText = "You are not currently eligible for the NHS Weight Loss Service.";
-    document.getElementById("reason").innerText = "Your measurements and health information do not meet the eligibility criteria.";
-}
-</script>
+    // Mounjaro
+    const mounjaroCount =
+      (data.t2dm?1:0) + (data.hypertension?1:0) + (data.cvd?1:0) +
+      (data.sleepApnoea?1:0) + (data.lipids?1:0);
 
+    if (adjBMI >= 35 && mounjaroCount >= 4) {
+      results.push({
+        name:"Mounjaro (Tirzepatide) – BSOP",
+        type:"medication",
+        desc:"Weekly injection + mandatory behavioural support for BMI ≥35 + 4 qualifying conditions."
+      });
+    }
+
+    // Bariatric surgery
+    if (adjBMI > 50 || adjBMI >= 40 ||
+        (adjBMI >= 35 && (data.cvd || data.hypertension || data.iih || data.sleepApnoea || data.t2dm))) {
+      results.push({
+        name:"Bariatric Surgery (Tier 4)",
+        type:"surgery",
+        desc:"Surgical option for BMI >50, or ≥40, or ≥35 with obesity‑related conditions."
+      });
+    }
+
+    // Tier 3 MoreLife/Oviva
+    if (adjBMI > 40 ||
+        (adjBMI > 35 && (data.hypertension || data.cvd || data.sleepApnoea)) ||
+        (adjBMI > 30 && data.t2dm)) {
+      results.push({
+        name:"Specialist Tier 3 Programme (MoreLife / Oviva)",
+        type:"lifestyle",
+        desc:"12‑month specialist programme for higher BMI or Type 2 diabetes."
+      });
+    }
+
+    const container = document.getElementById("results");
+
+    if (results.length === 0) {
+      container.innerHTML = "<p>No specific service identified. You may still benefit from Tier 2 support.</p>";
+    } else {
+      results.forEach(s => {
+        const div = document.createElement("div");
+        div.className = "service";
+        div.innerHTML = `
+          <h3>${s.name}</h3>
+          <span class="tag ${s.type}">${s.type}</span>
+          <p>${s.desc}</p>
+        `;
+        container.appendChild(div);
+      });
+    }
+  </script>
 </body>
 </html>
