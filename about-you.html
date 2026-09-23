@@ -104,10 +104,10 @@
       flex-shrink:0;
     }
 
-    /* Raise text by ~2mm */
+    /* Raise text by ~3mm */
     .checkbox-item label {
       position:relative;
-      top:-2px;
+      top:-3px;
       margin:0;
       padding:0;
     }
@@ -211,81 +211,36 @@
 
     <!-- SECTION 2 -->
     <h2>Your Health Conditions</h2>
-    <p class="section-desc">These conditions help determine eligibility for digital programmes, Tier 2, Tier 3, and Tier 4 services.</p>
+    <p class="section-desc">These conditions help determine eligibility for different NHS support options.</p>
 
     <fieldset>
       <legend>Health conditions</legend>
       <div class="checkbox-list">
-        <div class="checkbox-item">
-          <input type="checkbox" id="t1dm">
-          <label for="t1dm">Type 1 diabetes</label>
-        </div>
-        <div class="checkbox-item">
-          <input type="checkbox" id="t2dm">
-          <label for="t2dm">Type 2 diabetes</label>
-        </div>
-        <div class="checkbox-item">
-          <input type="checkbox" id="prediabetes">
-          <label for="prediabetes">Prediabetes</label>
-        </div>
-        <div class="checkbox-item">
-          <input type="checkbox" id="gestational">
-          <label for="gestational">Previous gestational diabetes</label>
-        </div>
-        <div class="checkbox-item">
-          <input type="checkbox" id="hypertension">
-          <label for="hypertension">High blood pressure</label>
-        </div>
-        <div class="checkbox-item">
-          <input type="checkbox" id="cvd">
-          <label for="cvd">Cardiovascular disease</label>
-        </div>
-        <div class="checkbox-item">
-          <input type="checkbox" id="sleepApnoea">
-          <label for="sleepApnoea">Sleep apnoea</label>
-        </div>
-        <div class="checkbox-item">
-          <input type="checkbox" id="lipids">
-          <label for="lipids">Abnormal blood fats</label>
-        </div>
+        <div class="checkbox-item"><input type="checkbox" id="t1dm"><label for="t1dm">Type 1 diabetes</label></div>
+        <div class="checkbox-item"><input type="checkbox" id="t2dm"><label for="t2dm">Type 2 diabetes</label></div>
+        <div class="checkbox-item"><input type="checkbox" id="prediabetes"><label for="prediabetes">Prediabetes</label></div>
+        <div class="checkbox-item"><input type="checkbox" id="gestational"><label for="gestational">Previous gestational diabetes</label></div>
+        <div class="checkbox-item"><input type="checkbox" id="hypertension"><label for="hypertension">High blood pressure</label></div>
+        <div class="checkbox-item"><input type="checkbox" id="cvd"><label for="cvd">Cardiovascular disease</label></div>
+        <div class="checkbox-item"><input type="checkbox" id="sleepApnoea"><label for="sleepApnoea">Sleep apnoea</label></div>
+        <div class="checkbox-item"><input type="checkbox" id="lipids"><label for="lipids">Abnormal blood fats</label></div>
       </div>
     </fieldset>
 
     <!-- SECTION 3 -->
     <h2>Specialist Clinical Conditions</h2>
-    <p class="section-desc">These conditions are used for Tier 3 medication eligibility (Wegovy, Mounjaro) and Tier 4 surgery.</p>
+    <p class="section-desc">These conditions help determine eligibility for medication or surgery pathways.</p>
 
     <fieldset>
       <legend>Specialist conditions</legend>
       <div class="checkbox-list">
-        <div class="checkbox-item">
-          <input type="checkbox" id="precancer">
-          <label for="precancer">Precancerous or cancer-related condition</label>
-        </div>
-        <div class="checkbox-item">
-          <input type="checkbox" id="transplant">
-          <label for="transplant">Weight loss required before organ transplant</label>
-        </div>
-        <div class="checkbox-item">
-          <input type="checkbox" id="iih">
-          <label for="iih">Idiopathic intracranial hypertension (IIH)</label>
-        </div>
-        <div class="checkbox-item">
-          <input type="checkbox" id="surgeryBarrier">
-          <label for="surgeryBarrier">BMI is a barrier to life‑limiting surgery</label>
-        </div>
-        <div class="checkbox-item">
-          <input type="checkbox" id="fertility">
-          <label for="fertility">Weight loss required for fertility treatment</label>
-        </div>
-        <div class="checkbox-item">
-          <input type="checkbox" id="genetic">
-          <label for="genetic">Proven genetic cause of obesity</label>
-        </div>
-        <div class="checkbox-item">
-          <input type="checkbox" id="severeOSA">
-          <label for="severeOSA">Severe obstructive sleep apnoea (on CPAP)</label>
-        </div>
+        <div class="checkbox-item"><input type="checkbox" id="precancer"><label for="precancer">Precancerous or cancer-related condition</label></div>
+        <div class="checkbox-item"><input type="checkbox" id="transplant"><label for="transplant">Weight loss required before organ transplant</label></div>
+        <div class="checkbox-item"><input type="checkbox" id="iih"><label for="iih">Idiopathic intracranial hypertension (IIH)</label></div>
+        <div class="checkbox-item"><input type="checkbox" id="surgeryBarrier"><label for="surgeryBarrier">BMI is a barrier to life‑limiting surgery</label></div>
+        <div class="checkbox-item"><input type="checkbox" id="fertility"><label for="fertility">Weight loss required for fertility treatment</label></div>
+        <div class="checkbox-item"><input type="checkbox" id="genetic"><label for="genetic">Proven genetic cause of obesity</label></div>
+        <div class="checkbox-item"><input type="checkbox" id="severeOSA"><label for="severeOSA">Severe obstructive sleep apnoea (on CPAP)</label></div>
       </div>
     </fieldset>
 
@@ -302,10 +257,10 @@
     }
 
     function saveAndContinue() {
-      const age = document.getElementById("age").value;
+      const age = Number(document.getElementById("age").value);
       const ethnicity = document.getElementById("ethnicity").value;
-      const height = document.getElementById("height").value;
-      const weight = document.getElementById("weight").value;
+      const height = Number(document.getElementById("height").value);
+      const weight = Number(document.getElementById("weight").value);
 
       if (!age || age < 16 || age > 120) {
         showError("Please enter a valid age (16–120).");
@@ -340,7 +295,11 @@
       const data = {};
       fields.forEach(id => {
         const el = document.getElementById(id);
-        data[id] = el.type === "checkbox" ? el.checked : el.value;
+        if (el.type === "checkbox") {
+          data[id] = el.checked;
+        } else {
+          data[id] = Number(el.value);   /* FIX APPLIED HERE */
+        }
       });
 
       localStorage.setItem("wmData", JSON.stringify(data));
