@@ -59,13 +59,13 @@
       font-size:1rem;
     }
 
-    .grid-two {
+    .row {
       display:flex;
       flex-wrap:wrap;
       gap:1rem;
     }
 
-    .grid-two > div {
+    .row > div {
       flex:1 1 260px;
     }
 
@@ -82,24 +82,20 @@
       color:#003087;
     }
 
+    /* SINGLE-COLUMN CHECKBOX LIST */
     .checkbox-list {
       margin-top:0.5rem;
-      display:flex;
-      flex-direction:column;
-      gap:0.4rem;
     }
 
     .checkbox-item {
-      display:flex;
-      align-items:flex-start;
-      gap:0.5rem;
+      margin-bottom:0.4rem;
       color:#425563;
       font-size:0.95rem;
       line-height:1.3;
     }
 
     .checkbox-item input {
-      margin-top:0.15rem;
+      margin-right:0.4rem;
     }
 
     button {
@@ -147,6 +143,12 @@
       font-size:0.95rem;
       display:none;
     }
+
+    @media (max-width: 700px) {
+      .row > div {
+        flex:1 1 100%;
+      }
+    }
   </style>
 </head>
 
@@ -165,7 +167,7 @@
     <h2>Your Details</h2>
     <p class="section-desc">These details help us calculate your BMI and apply the correct eligibility thresholds.</p>
 
-    <div class="grid-two">
+    <div class="row">
       <div>
         <label>Age</label>
         <input type="number" id="age" min="16" max="120" placeholder="e.g. 45">
@@ -181,7 +183,7 @@
       </div>
     </div>
 
-    <div class="grid-two">
+    <div class="row">
       <div>
         <label>Height (cm)</label>
         <input type="number" id="height" placeholder="e.g. 170">
@@ -333,4 +335,3 @@
   </script>
 </body>
 </html>
-
