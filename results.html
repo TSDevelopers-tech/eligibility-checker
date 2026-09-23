@@ -57,7 +57,6 @@
       color:#003087;
     }
 
-    /* TREATMENT TYPE BADGES */
     .badge {
       display:inline-block;
       padding:0.25rem 0.6rem;
@@ -68,17 +67,9 @@
       color:#fff;
     }
 
-    .badge-lifestyle {
-      background:#007f3b; /* NHS green */
-    }
-
-    .badge-medication {
-      background:#005EB8; /* NHS blue */
-    }
-
-    .badge-surgery {
-      background:#DA291C; /* NHS red */
-    }
+    .badge-lifestyle { background:#007f3b; }
+    .badge-medication { background:#005EB8; }
+    .badge-surgery { background:#DA291C; }
 
     .service a {
       display:inline-block;
@@ -88,9 +79,7 @@
       font-weight:bold;
     }
 
-    .service a:hover {
-      text-decoration:underline;
-    }
+    .service a:hover { text-decoration:underline; }
 
     button {
       background:#005EB8;
@@ -103,9 +92,7 @@
       margin-top:2rem;
     }
 
-    button:hover {
-      background:#003087;
-    }
+    button:hover { background:#003087; }
 
     .back-start-btn {
       background:#D8DDE0;
@@ -113,9 +100,7 @@
       margin-top:1rem;
     }
 
-    .back-start-btn:hover {
-      background:#C0C6CC;
-    }
+    .back-start-btn:hover { background:#C0C6CC; }
   </style>
 </head>
 
@@ -128,7 +113,6 @@
     <h2>Services You May Be Eligible For</h2>
     <div id="services"></div>
 
-    <!-- BACK TO START BUTTON -->
     <button class="back-start-btn" onclick="location.href='index.html'">
       Back to Start
     </button>
@@ -137,7 +121,6 @@
   <script>
     const data = JSON.parse(localStorage.getItem("wmData") || "{}");
 
-    /* Ensure height/weight are numbers */
     data.height = Number(data.height);
     data.weight = Number(data.weight);
 
@@ -159,61 +142,127 @@
       const bmi = calculateBMI(data.weight, data.height);
       const services = [];
 
-      /* DIGITAL WEIGHT MANAGEMENT */
+      /* DIGITAL WMP */
       if (bmi >= 25) {
         services.push({
           title: "NHS Digital Weight Management Programme",
           desc: "A 12-week online programme to support weight loss.",
+          referral: "Referral required from your GP or community pharmacy.",
           link: "https://www.england.nhs.uk/digital-weight-management/",
           type: "lifestyle"
         });
       }
 
-      /* LOCAL WEIGHT MANAGEMENT */
-      if (bmi >= 30 || (bmi >= 27.5 && String(data.ethnicity).toLowerCase().trim() === "adjusted")) {
+      /* WEST SUSSEX WELLBEING – 12 WEEK COURSE (BMI 25–40) */
+      if (bmi >= 25 && bmi <= 40) {
         services.push({
-          title: "Local Weight Management Support",
-          desc: "Community-based lifestyle support to help you manage your weight.",
-          link: "https://www.nhs.uk/live-well/healthy-weight/",
+          title: "West Sussex Wellbeing – 12‑week Weight Management Course",
+          desc: "In‑person or virtual group programme supporting healthy eating and activity.",
+          referral: "Self‑referral directly to West Sussex Wellbeing.",
+          link: "https://www.westsussexwellbeing.org.uk/topics/healthy-eating/services-for-west-sussex",
           type: "lifestyle"
         });
       }
 
-      /* DIABETES PREVENTION */
+      /* GROHEALTH – DIGITAL PROGRAMME (BMI >25) */
+      if (bmi > 25) {
+        services.push({
+          title: "GroHealth – 12‑month Digital Programme",
+          desc: "App‑based personalised weight management support for West Sussex residents.",
+          referral: "Self‑referral via the GroHealth website.",
+          link: "https://web.grohealth.com/west-sussex",
+          type: "lifestyle"
+        });
+      }
+
+      /* BETTER HEALTH – ALWAYS AVAILABLE */
+      services.push({
+        title: "Better Health – NHS Healthy Families",
+        desc: "National NHS support with healthy eating, recipes, activity and weight management.",
+        referral: "Open access — no referral required.",
+        link: "https://www.nhs.uk/healthier-families/",
+        type: "lifestyle"
+      });
+
+      /* DIABETES PREVENTION PROGRAMME */
       if (data.prediabetes || data.gestational) {
         services.push({
           title: "NHS Diabetes Prevention Programme",
           desc: "Support to reduce your risk of developing Type 2 diabetes.",
+          referral: "Referral from your GP OR self‑referral to Healthier You (Xyla).",
           link: "https://preventing-diabetes.co.uk",
           type: "lifestyle"
         });
       }
 
-      /* SPECIALIST WEIGHT MANAGEMENT */
-      if (bmi >= 35 && (data.t2dm || data.hypertension)) {
+      /* SPECIALIST WEIGHT MANAGEMENT (TIER 3 – MORELIFE/OVIVA) */
+      if (
+        (bmi > 40) ||
+        (bmi > 35 && (data.hypertension || data.cvd || data.sleepApnoea)) ||
+        (bmi > 30 && data.t2dm)
+      ) {
         services.push({
-          title: "Specialist Weight Management Service",
-          desc: "Clinically-led support for people with more complex weight-related health needs.",
-          link: "https://www.nhs.uk/conditions/obesity/treatment/",
+          title: "Specialist Weight Management Service (Tier 3)",
+          desc: "12‑month specialist programme delivered by MoreLife or Oviva.",
+          referral: "Referral required from your GP.",
+          link: "https://www.surreysussex.icb.nhs.uk/weight-management-services",
           type: "lifestyle"
         });
       }
 
-      /* MEDICATION & LIFESTYLE */
-      if (bmi >= 35 && data.t2dm) {
+      /* WEGOVY – TIER 3 MEDICATION */
+      if (bmi >= 35 && (
+        data.precancer ||
+        data.transplant ||
+        data.iih ||
+        data.surgeryBarrier ||
+        data.fertility ||
+        data.genetic ||
+        data.severeOSA
+      )) {
         services.push({
-          title: "Weight Loss Medication (Wegovy / Mounjaro)",
-          desc: "You may meet criteria for NHS weight loss medicines, alongside lifestyle support.",
+          title: "Wegovy® (semaglutide)",
+          desc: "Weekly self-injection prescribed via specialist weight services, alongside lifestyle support.",
+          referral: "Referral required from your GP to the specialist weight management service.",
+          link: "https://www.nhs.uk/medicines/weight-loss-medicines/",
+          type: "medication"
+        });
+      }
+
+      /* MOUNJARO – GP + BSOP PROGRAMME */
+      const mounjaroConditions = [
+        data.t2dm,
+        data.hypertension,
+        data.cvd,
+        data.sleepApnoea,
+        data.lipids
+      ];
+
+      if (bmi >= 35 && mounjaroConditions.filter(x => x).length >= 4) {
+        services.push({
+          title: "Mounjaro® (tirzepatide)",
+          desc: "Weekly self-injection prescribed by your GP with mandatory behavioural support via the BSOP programme.",
+          referral: "Prescribed directly by your GP. Mandatory enrolment into the BSOP programme.",
           link: "https://healthieryou.org.uk/bsop-programme/",
           type: "medication"
         });
       }
 
-      /* SURGERY */
-      if (bmi >= 40 || (bmi >= 35 && data.surgeryBarrier)) {
+      /* BARIATRIC SURGERY (TIER 4) */
+      if (
+        bmi >= 40 ||
+        (bmi >= 35 && (
+          data.cvd ||
+          data.hypertension ||
+          data.iih ||
+          data.sleepApnoea ||
+          data.t2dm
+        ))
+      ) {
         services.push({
-          title: "Weight Loss Surgery Assessment",
+          title: "Bariatric Surgery Assessment (Tier 4)",
           desc: "Assessment for surgical weight loss options.",
+          referral: "Referral required from your GP to the bariatric surgery team.",
           link: "https://www.nhs.uk/conditions/weight-loss-surgery/",
           type: "surgery"
         });
@@ -233,7 +282,8 @@
               ${badgeMap[s.type]}
               <h3>${s.title}</h3>
               <p>${s.desc}</p>
-              <a href="${s.link}" target="_blank">Visit NHS website</a>
+              <p><strong>How to access:</strong> ${s.referral}</p>
+              <a href="${s.link}" target="_blank">Visit website</a>
             </div>
           `).join("")
         : "<p>No services matched your criteria.</p>";
