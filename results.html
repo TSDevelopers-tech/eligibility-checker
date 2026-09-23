@@ -57,6 +57,41 @@
       color:#003087;
     }
 
+    /* TREATMENT TYPE BADGES */
+    .badge {
+      display:inline-block;
+      padding:0.25rem 0.6rem;
+      border-radius:4px;
+      font-size:0.8rem;
+      font-weight:bold;
+      margin-bottom:0.6rem;
+      color:#fff;
+    }
+
+    .badge-lifestyle {
+      background:#007f3b; /* NHS green */
+    }
+
+    .badge-medication {
+      background:#005EB8; /* NHS blue */
+    }
+
+    .badge-surgery {
+      background:#DA291C; /* NHS red */
+    }
+
+    .service a {
+      display:inline-block;
+      margin-top:0.5rem;
+      color:#005EB8;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .service a:hover {
+      text-decoration:underline;
+    }
+
     button {
       background:#005EB8;
       color:#fff;
@@ -88,9 +123,7 @@
   <div class="container">
     <h1>Your Results</h1>
 
-    <div id="summary" class="result-box">
-      <!-- BMI + summary inserted by JS -->
-    </div>
+    <div id="summary" class="result-box"></div>
 
     <h2>Services You May Be Eligible For</h2>
     <div id="services"></div>
@@ -122,41 +155,81 @@
       const bmi = calculateBMI(data.weight, data.height);
       const services = [];
 
-      // Example logic — your existing logic stays the same
+      // DIGITAL WEIGHT MANAGEMENT (LIFESTYLE)
       if (bmi >= 25) {
         services.push({
-          title: "Digital Weight Management Programme",
-          desc: "You may be eligible for digital support to help manage your weight."
+          title: "NHS Digital Weight Management Programme",
+          desc: "A 12-week online programme to support weight loss.",
+          link: "https://www.england.nhs.uk/digital-weight-management/",
+          type: "lifestyle"
         });
       }
 
+      // TIER 2 (LIFESTYLE)
       if (bmi >= 30 || (bmi >= 27.5 && data.ethnicity === "adjusted")) {
         services.push({
           title: "Tier 2 Weight Management",
-          desc: "You may be eligible for local Tier 2 weight management services."
+          desc: "Local lifestyle weight management support.",
+          link: "https://www.nhs.uk/live-well/healthy-weight/",
+          type: "lifestyle"
         });
       }
 
+      // DIABETES PREVENTION (LIFESTYLE)
+      if (data.prediabetes || data.gestational) {
+        services.push({
+          title: "NHS Diabetes Prevention Programme",
+          desc: "Support to reduce your risk of developing Type 2 diabetes.",
+          link: "https://www.england.nhs.uk/nhs-diabetes-prevention/",
+          type: "lifestyle"
+        });
+      }
+
+      // TIER 3 (LIFESTYLE + MEDICAL INPUT)
       if (bmi >= 35 && (data.t2dm || data.hypertension)) {
         services.push({
           title: "Tier 3 Specialist Weight Management",
-          desc: "You may be eligible for specialist Tier 3 support."
+          desc: "Clinically-led specialist support for complex obesity.",
+          link: "https://www.nhs.uk/conditions/obesity/treatment/",
+          type: "lifestyle"
         });
       }
 
+      // MEDICATION (MEDICATION)
+      if (bmi >= 35 && data.t2dm) {
+        services.push({
+          title: "Weight Loss Medication (Wegovy / Mounjaro)",
+          desc: "You may meet criteria for NHS obesity medicines.",
+          link: "https://www.nhs.uk/medicines/weight-loss-medicines/",
+          type: "medication"
+        });
+      }
+
+      // TIER 4 SURGERY (SURGERY)
       if (bmi >= 40 || (bmi >= 35 && data.surgeryBarrier)) {
         services.push({
           title: "Tier 4 Bariatric Surgery Assessment",
-          desc: "You may be eligible for Tier 4 bariatric surgery assessment."
+          desc: "Assessment for surgical weight loss options.",
+          link: "https://www.nhs.uk/conditions/weight-loss-surgery/",
+          type: "surgery"
         });
       }
 
       const container = document.getElementById("services");
+
+      const badgeMap = {
+        lifestyle: '<span class="badge badge-lifestyle">Lifestyle</span>',
+        medication: '<span class="badge badge-medication">Medication</span>',
+        surgery: '<span class="badge badge-surgery">Surgery</span>'
+      };
+
       container.innerHTML = services.length
         ? services.map(s => `
             <div class="service">
+              ${badgeMap[s.type]}
               <h3>${s.title}</h3>
               <p>${s.desc}</p>
+              <a href="${s.link}" target="_blank">Visit NHS website</a>
             </div>
           `).join("")
         : "<p>No services matched your criteria.</p>";
