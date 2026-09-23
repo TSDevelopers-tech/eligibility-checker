@@ -27,44 +27,65 @@
       margin-top:0;
     }
 
-    h3 {
-      color:#003087;
-      margin-bottom:0.3rem;
-    }
-
     #bmiText {
       color:#425563;
       font-size:1rem;
       margin-bottom:1.5rem;
+      background:#F0F7FF;
+      padding:0.8rem;
+      border-left:4px solid #005EB8;
+      border-radius:4px;
     }
 
-    .service {
-      border-top:1px solid #D8DDE0;
-      padding-top:1rem;
-      margin-top:1rem;
+    .service-card {
+      background:#fff;
+      border:1px solid #D8DDE0;
+      border-radius:8px;
+      padding:1.2rem;
+      margin-bottom:1.5rem;
+      box-shadow:0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .service-header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:0.5rem;
+    }
+
+    .service-header h3 {
+      margin:0;
+      color:#003087;
+      font-size:1.2rem;
     }
 
     .tag {
-      display:inline-block;
-      padding:0.2rem 0.5rem;
+      padding:0.25rem 0.6rem;
       border-radius:4px;
-      font-size:0.8rem;
-      margin-right:0.5rem;
-      margin-bottom:0.5rem;
+      font-size:0.75rem;
+      font-weight:bold;
+      text-transform:uppercase;
     }
 
     .lifestyle { background:#E8F1F8; color:#00703C; }
     .medication { background:#FFF4D8; color:#946200; }
     .surgery { background:#FBE3E5; color:#DA291C; }
 
-    .referral {
+    .service-desc {
+      color:#425563;
+      margin:0.5rem 0 1rem;
+      font-size:0.95rem;
+      line-height:1.4;
+    }
+
+    .referral-box {
       background:#F0F7FF;
       border-left:4px solid #005EB8;
       padding:0.8rem;
-      margin-top:0.6rem;
       border-radius:4px;
       color:#003087;
       font-size:0.9rem;
+      margin-top:0.5rem;
     }
 
     .footer-note {
@@ -100,7 +121,7 @@
     const adjBMI = data.ethnicity === "adjusted" ? bmi - 2.5 : bmi;
 
     document.getElementById("bmiText").textContent =
-      bmi ? `BMI: ${bmi.toFixed(1)} (adjusted: ${adjBMI.toFixed(1)})`
+      bmi ? `Your BMI is ${bmi.toFixed(1)} (adjusted for eligibility: ${adjBMI.toFixed(1)})`
           : "BMI could not be calculated.";
 
     const results = [];
@@ -110,7 +131,7 @@
       results.push({
         name:"NHS Digital Weight Management Programme",
         type:"lifestyle",
-        desc:"12‑week digital programme for BMI ≥30 with diabetes or high blood pressure.",
+        desc:"A 12‑week online/app-based programme designed to support weight loss for adults with a BMI of 30 or above and either diabetes or high blood pressure.",
         referral:"Referral is made by your GP or community pharmacy."
       });
     }
@@ -120,7 +141,7 @@
       results.push({
         name:"West Sussex Wellbeing (Tier 2)",
         type:"lifestyle",
-        desc:"12‑week course or GroHealth app for BMI ≥25.",
+        desc:"A 12‑week weight management course (in-person or virtual) and access to the GroHealth app for adults with a BMI of 25 or above.",
         referral:"You can self‑refer directly via West Sussex Wellbeing."
       });
     }
@@ -130,7 +151,7 @@
       results.push({
         name:"NHS Diabetes Prevention Programme",
         type:"lifestyle",
-        desc:"Support for prediabetes or previous gestational diabetes.",
+        desc:"A structured programme for people with prediabetes or previous gestational diabetes to reduce the risk of developing Type 2 diabetes.",
         referral:"You can self‑refer to Healthier You (Xyla) or ask your GP to refer you."
       });
     }
@@ -144,7 +165,7 @@
       results.push({
         name:"Wegovy (Semaglutide) – Tier 3",
         type:"medication",
-        desc:"Weekly injection + lifestyle support for BMI ≥35 with qualifying condition.",
+        desc:"A weekly weight‑loss injection combined with specialist lifestyle support for adults with a BMI of 35 or above and at least one qualifying clinical condition.",
         referral:"Your GP must refer you to the specialist Tier 3 weight management service."
       });
     }
@@ -158,7 +179,7 @@
       results.push({
         name:"Mounjaro (Tirzepatide) – BSOP",
         type:"medication",
-        desc:"Weekly injection + mandatory behavioural support for BMI ≥35 + 4 qualifying conditions.",
+        desc:"A weekly weight‑loss injection with mandatory behavioural support for adults with a BMI of 35 or above and four qualifying health conditions.",
         referral:"Your GP must refer you into the NHS Behavioural Support for Obesity Prescribing Programme."
       });
     }
@@ -169,7 +190,7 @@
       results.push({
         name:"Bariatric Surgery (Tier 4)",
         type:"surgery",
-        desc:"Surgical option for BMI >50, or ≥40, or ≥35 with obesity‑related conditions.",
+        desc:"Surgical weight‑loss treatment for adults with very high BMI or obesity‑related health conditions where surgery would significantly improve health.",
         referral:"Referral is made by your GP to the regional bariatric surgery service."
       });
     }
@@ -181,7 +202,7 @@
       results.push({
         name:"Specialist Tier 3 Programme (MoreLife / Oviva)",
         type:"lifestyle",
-        desc:"12‑month specialist programme for higher BMI or Type 2 diabetes.",
+        desc:"A 12‑month specialist programme offering intensive lifestyle, nutrition and behavioural support for adults with higher BMI or Type 2 diabetes.",
         referral:"Your GP can refer you once you have completed Tier 2 without achieving 5% weight loss."
       });
     }
@@ -189,18 +210,34 @@
     const container = document.getElementById("results");
 
     if (results.length === 0) {
-      container.innerHTML = "<p>No specific service identified. You may still benefit from Tier 2 support.</p>";
+      container.innerHTML = `
+        <div class="service-card">
+          <h3>No specific service identified</h3>
+          <p class="service-desc">
+            Based on the information provided, no Tier 3 or Tier 4 services match your criteria.
+            You may still benefit from Tier 2 support such as West Sussex Wellbeing.
+          </p>
+        </div>
+      `;
     } else {
       results.forEach(s => {
-        const div = document.createElement("div");
-        div.className = "service";
-        div.innerHTML = `
-          <h3>${s.name}</h3>
-          <span class="tag ${s.type}">${s.type}</span>
-          <p>${s.desc}</p>
-          <div class="referral"><strong>How to access:</strong> ${s.referral}</div>
+        const card = document.createElement("div");
+        card.className = "service-card";
+
+        card.innerHTML = `
+          <div class="service-header">
+            <h3>${s.name}</h3>
+            <span class="tag ${s.type}">${s.type}</span>
+          </div>
+
+          <p class="service-desc">${s.desc}</p>
+
+          <div class="referral-box">
+            <strong>How to access:</strong> ${s.referral}
+          </div>
         `;
-        container.appendChild(div);
+
+        container.appendChild(card);
       });
     }
   </script>
