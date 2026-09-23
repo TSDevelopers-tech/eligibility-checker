@@ -140,10 +140,14 @@
 
     function buildServices() {
       const bmi = calculateBMI(data.weight, data.height);
+
+      // Apply ethnicity BMI reduction ONLY where required
+      const adjBMI = data.ethnicity === "adjusted" ? bmi - 2.5 : bmi;
+
       const services = [];
 
-      /* DIGITAL WMP */
-      if (bmi >= 30 && (data.t1dm || data.t2dm || data.hypertension)) {
+      /* DIGITAL WMP — ethnicity-adjusted */
+      if (adjBMI >= 30 && (data.t1dm || data.t2dm || data.hypertension)) {
         services.push({
           title: "NHS Digital Weight Management Programme",
           desc: "A 12-week online programme to support weight loss.",
@@ -153,7 +157,7 @@
         });
       }
 
-      /* WEST SUSSEX WELLBEING – 12 WEEK COURSE (BMI 25–40) */
+      /* WEST SUSSEX WELLBEING – 12 WEEK COURSE (BMI 25–40) — NOT ethnicity-adjusted */
       if (bmi >= 25 && bmi <= 40) {
         services.push({
           title: "West Sussex Wellbeing – 12‑week Weight Management Course",
@@ -164,7 +168,7 @@
         });
       }
 
-      /* GROHEALTH – DIGITAL PROGRAMME (BMI >25) */
+      /* GROHEALTH – DIGITAL PROGRAMME (BMI >25) — NOT ethnicity-adjusted */
       if (bmi > 25) {
         services.push({
           title: "GroHealth – 12‑month Digital Programme",
@@ -197,20 +201,21 @@
 
       /* SPECIALIST WEIGHT MANAGEMENT (TIER 3 – MORELIFE/OVIVA) */
       if (
-        (bmi > 40) ||
-        (bmi > 35 && (data.hypertension || data.cvd || data.sleepApnoea)) ||
-        (bmi > 30 && data.t2dm)
+        (bmi > 40) || // NOT ethnicity-adjusted
+        (bmi > 35 && (data.hypertension || data.cvd || data.sleepApnoea)) || // NOT ethnicity-adjusted
+        (adjBMI > 30 && data.t2dm) // ethnicity-adjusted ONLY for this rule
       ) {
         services.push({
           title: "Specialist Weight Management Service",
           desc: "12‑month specialist programme delivered by MoreLife or Oviva.",
           referral: "Referral required from your GP.",
+          link: "https://www.surreysussex.icb.nhs.uk/weight-management-services",
           type: "lifestyle"
         });
       }
 
-      /* WEGOVY – TIER 3 MEDICATION */
-      if (bmi >= 35 && (
+      /* WEGOVY – ethnicity-adjusted */
+      if (adjBMI >= 35 && (
         data.precancer ||
         data.transplant ||
         data.iih ||
@@ -223,11 +228,12 @@
           title: "Wegovy® (semaglutide)",
           desc: "Weekly self-injection prescribed via specialist weight services, alongside lifestyle support.",
           referral: "Referral required from your GP to the specialist weight management service.",
+          link: "https://www.nhs.uk/medicines/semaglutide/",
           type: "medication"
         });
       }
 
-      /* MOUNJARO – GP + BSOP PROGRAMME */
+      /* MOUNJARO – ethnicity-adjusted */
       const mounjaroConditions = [
         data.t2dm,
         data.hypertension,
@@ -236,7 +242,7 @@
         data.lipids
       ];
 
-      if (bmi >= 35 && mounjaroConditions.filter(x => x).length >= 4) {
+      if (adjBMI >= 35 && mounjaroConditions.filter(x => x).length >= 4) {
         services.push({
           title: "Mounjaro® (tirzepatide)",
           desc: "Weekly self-injection prescribed by your GP with mandatory behavioural support via the BSOP programme.",
@@ -246,10 +252,10 @@
         });
       }
 
-      /* BARIATRIC SURGERY (TIER 4) */
+      /* BARIATRIC SURGERY – ethnicity-adjusted */
       if (
-        bmi >= 40 ||
-        (bmi >= 35 && (
+        adjBMI >= 40 ||
+        (adjBMI >= 35 && (
           data.cvd ||
           data.hypertension ||
           data.iih ||
