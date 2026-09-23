@@ -1,36 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NHS Adult Weight Management – Results</title>
+<script>
+// --- Retrieve stored values ---
+const fullName = localStorage.getItem("fullName");
+const age = Number(localStorage.getItem("age"));
+const height = Number(localStorage.getItem("height"));
+const weight = Number(localStorage.getItem("weight"));
+const waist = Number(localStorage.getItem("waist"));
+const hip = Number(localStorage.getItem("hip"));
+const conditions = JSON.parse(localStorage.getItem("conditions") || "[]");
 
-<style>
-    body { font-family: Arial, sans-serif; margin:0; background:#f0f4f5; }
-    .nhs-header { background:#005EB8; padding:20px; color:white; text-align:center; }
-    .container { max-width:900px; margin:30px auto; background:white; padding:25px; border-radius:8px; }
-    h1, h2 { color:#005EB8; }
-    .service {
-        margin-bottom:25px; padding:15px; background:#f7f9fa;
-        border-radius:6px; border-left:4px solid #005EB8;
-    }
-    .service h3 { margin:0 0 10px 0; color:#005EB8; }
-    .tag {
-        display:inline-block; padding:4px 8px; border-radius:4px;
-        font-size:12px; margin-right:5px; margin-bottom:10px;
-    }
-    .tag-lifestyle { background:#d4f4d4; }
-    .tag-medication { background:#ffe4b3; }
-    .tag-surgery { background:#f8c4c4; }
-    .why-box {
-        background:#e8f4ff; padding:10px; border-radius:4px;
-        margin-top:10px; border-left:4px solid #005EB8;
-    }
-    button {
-        background:#005EB8; color:white; padding:12px 18px;
-        border:none; border-radius:4px; font-size:16px; cursor:pointer;
-        margin-top:20px; margin-right:10px;
-    }
-    button:hover { background:#003f7d; }
-    .gp-box {
-        background:#fff3cd; padding:15px; border-left:4px solid #ffcc
+// --- Calculate BMI ---
+const bmi = weight / ((height / 100) ** 2);
+const bmiRounded = bmi.toFixed(1);
+
+// --- Adjusted BMI (for ethnicity logic if needed) ---
+let adjustedBMI = bmi;
+if (conditions.includes("southAsian")) {
+    adjustedBMI = bmi + 2.5;
+}
+const adjustedRounded = adjustedBMI.toFixed(1);
+
+// --- Eligibility Logic ---
+let eligible = false;
+let reason = "";
+
+// Rule 1: BMI ≥ 30
+if (adjustedBMI >= 30) {
+    eligible = true;
+    reason = "Your BMI is 30 or above.";
+}
+
+// Rule 2: BMI ≥ 27.5 for South Asian backgrounds
+if (!eligible && conditions.includes("southAsian") && adjustedBMI >= 27.5) {
+    eligible = true;
+    reason = "Your adjusted BMI is 27.5 or above for South Asian backgrounds.";
+}
+
+// Rule 3: Waist-to-hip ratio
+const whr = waist / hip;
+if (!eligible && whr > 0.85) {
+    eligible = true;
+    reason = "Your waist-to-hip ratio indicates increased health risk.";
+}
+
+// Rule 4: Medical conditions
+if (!eligible && conditions.includes("hypertension")) {
+    eligible = true;
+    reason = "You reported hypertension.";
+}
+if (!eligible && conditions.includes("diabetes")) {
+    eligible = true;
+    reason = "You reported diabetes.";
+}
+
+// --- Display Results ---
+document.getElementById("name").innerText = fullName || "User";
+document.getElementById("bmi").innerText = bmiRounded;
+document.getElementById("adjusted").innerText = adjustedRounded;
+
+if (eligible) {
+    document.getElementById("result").innerText = "You are eligible for the NHS Weight Loss Service.";
+    document.getElementById("reason").innerText = reason;
+} else {
+    document.getElementById("result").innerText = "You are not currently eligible for the NHS Weight Loss Service.";
+    document.getElementById("reason").innerText = "Your measurements and health information do not meet the eligibility criteria.";
+}
+</script>
