@@ -5,73 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adult Weight Management Services – Eligibility Checker</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background: #f5f5f5;
-        }
+        body { font-family: Arial, sans-serif; margin: 0; background: #f5f5f5; }
         .container {
-            max-width: 900px;
-            margin: 30px auto;
-            background: #ffffff;
-            padding: 20px 25px;
-            border-radius: 10px;
+            max-width: 900px; margin: 30px auto; background: #ffffff;
+            padding: 20px 25px; border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        h1, h2 {
-            text-align: center;
-        }
-        label {
-            font-weight: bold;
-            margin-top: 15px;
-            display: block;
-        }
-        select, input[type="number"], input[type="checkbox"], button {
-            margin-top: 8px;
-            font-size: 15px;
-        }
-        select, input[type="number"] {
-            width: 100%;
-            padding: 8px;
-        }
-        .checkbox-group {
-            margin-top: 8px;
-        }
-        .checkbox-group label {
-            font-weight: normal;
-            display: block;
-        }
+        h1, h2 { text-align: center; }
+        label { font-weight: bold; margin-top: 15px; display: block; }
+        select, input[type="number"] { width: 100%; padding: 8px; margin-top: 8px; }
+        .checkbox-group label { font-weight: normal; display: block; margin-top: 5px; }
         button {
-            background: #0078D4;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 15px;
-            margin-top: 20px;
-            cursor: pointer;
+            background: #0078D4; color: #fff; border: none; border-radius: 5px;
+            padding: 10px 15px; margin-top: 20px; cursor: pointer;
         }
-        button:hover {
-            background: #005A9E;
-        }
+        button:hover { background: #005A9E; }
         .result {
-            margin-top: 30px;
-            padding: 20px;
-            background: #e8f4ff;
+            margin-top: 30px; padding: 20px; background: #e8f4ff;
             border-left: 5px solid #0078D4;
         }
-        .service {
-            margin-bottom: 15px;
-        }
-        .service h3 {
-            margin: 0 0 5px 0;
-        }
-        .tag {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            margin-right: 5px;
-        }
+        .service { margin-bottom: 15px; }
+        .service h3 { margin: 0 0 5px 0; }
+        .tag { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 12px; margin-right: 5px; }
         .tag-lifestyle { background:#d4f4d4; }
         .tag-medication { background:#ffe4b3; }
         .tag-surgery { background:#f8c4c4; }
@@ -103,38 +58,38 @@
         <option value="none">No diabetes</option>
         <option value="type1">Type 1 diabetes</option>
         <option value="type2">Type 2 diabetes</option>
-        <option value="prediabetes">Prediabetes (HbA1c 42–47.9 or fasting glucose 5.5–6.9)</option>
+        <option value="prediabetes">Prediabetes</option>
         <option value="gestationalHistory">Previous gestational diabetes</option>
     </select>
 
     <label>Blood pressure</label>
     <div class="checkbox-group">
-        <label><input type="checkbox" id="highBP"> High blood pressure (on treatment or diagnosed)</label>
+        <label><input type="checkbox" id="highBP"> High blood pressure</label>
     </div>
 
-    <label>Cardiovascular / metabolic conditions</label>
+    <label>Cardiometabolic conditions</label>
     <div class="checkbox-group">
-        <label><input type="checkbox" id="cvd"> Cardiovascular disease / heart disease / stroke</label>
-        <label><input type="checkbox" id="sleepApnoea"> Obstructive sleep apnoea (OSA)</label>
-        <label><input type="checkbox" id="abnormalFats"> Abnormal blood fats / dyslipidaemia</label>
-        <label><input type="checkbox" id="masld"> Metabolic dysfunction-associated liver disease (MASLD)</label>
+        <label><input type="checkbox" id="cvd"> Cardiovascular disease</label>
+        <label><input type="checkbox" id="sleepApnoea"> Obstructive sleep apnoea</label>
+        <label><input type="checkbox" id="abnormalFats"> Abnormal blood fats</label>
+        <label><input type="checkbox" id="masld"> MASLD</label>
     </div>
 
-    <label>Other qualifying clinical conditions (for Wegovy / Tier 3)</label>
+    <label>Qualifying conditions (Wegovy)</label>
     <div class="checkbox-group">
-        <label><input type="checkbox" id="precancer"> Precancerous or cancerous condition</label>
-        <label><input type="checkbox" id="transplant"> Weight loss required before organ transplant</label>
-        <label><input type="checkbox" id="iih"> Idiopathic intracranial hypertension requiring frequent lumbar punctures / visual compromise</label>
-        <label><input type="checkbox" id="awaitingSurgery"> Awaiting surgery for life-limiting condition where BMI is primary barrier</label>
-        <label><input type="checkbox" id="fertility"> Weight loss required before assisted conception / fertility treatment</label>
-        <label><input type="checkbox" id="geneticObesity"> Proven genetic cause of obesity (not eligible for setmelanotide)</label>
-        <label><input type="checkbox" id="severeOSA"> Severe OSA on CPAP (AHI ≥30)</label>
+        <label><input type="checkbox" id="precancer"> Precancerous/cancerous condition</label>
+        <label><input type="checkbox" id="transplant"> Weight loss needed before organ transplant</label>
+        <label><input type="checkbox" id="iih"> Idiopathic intracranial hypertension</label>
+        <label><input type="checkbox" id="awaitingSurgery"> Awaiting surgery where BMI is barrier</label>
+        <label><input type="checkbox" id="fertility"> Weight loss needed before fertility treatment</label>
+        <label><input type="checkbox" id="geneticObesity"> Genetic cause of obesity</label>
+        <label><input type="checkbox" id="severeOSA"> Severe OSA on CPAP</label>
     </div>
 
-    <label>Engagement with Tier 2 services</label>
+    <label>Tier 2 engagement</label>
     <div class="checkbox-group">
-        <label><input type="checkbox" id="completedTier2"> Fully engaged & completed Tier 2 programme</label>
-        <label><input type="checkbox" id="lostFivePercent"> Achieved ≥5% weight loss during Tier 2</label>
+        <label><input type="checkbox" id="completedTier2"> Completed Tier 2</label>
+        <label><input type="checkbox" id="lostFivePercent"> Achieved ≥5% weight loss</label>
     </div>
 
     <button onclick="checkEligibility()">Check services you may be eligible for</button>
@@ -146,10 +101,7 @@
 function adjustedBMI(rawBMI, ethnicity) {
     if (!rawBMI || isNaN(rawBMI)) return null;
     const lowerEthnicities = ["asian","middleEastern","blackAfrican","africanCaribbean"];
-    if (lowerEthnicities.includes(ethnicity)) {
-        return rawBMI - 2.5;
-    }
-    return rawBMI;
+    return lowerEthnicities.includes(ethnicity) ? rawBMI - 2.5 : rawBMI;
 }
 
 function checkEligibility() {
@@ -175,58 +127,72 @@ function checkEligibility() {
     const completedTier2 = document.getElementById("completedTier2").checked;
     const lostFivePercent = document.getElementById("lostFivePercent").checked;
 
-    let services = [];
+    const resultDiv = document.getElementById("result");
+    resultDiv.style.display = "block";
 
     if (!bmi) {
-        alert("Please enter a valid BMI.");
+        resultDiv.innerHTML = "<h2>Your results</h2><p>Please enter a valid BMI.</p>";
         return;
     }
 
-    // NHS Digital Weight Management Programme
+    // ⭐ NEW RULE: BMI < 25 → no services available
+    if (bmi < 25) {
+        resultDiv.innerHTML = `
+            <h2>Your results</h2>
+            <p>Your adjusted BMI is <strong>${bmi.toFixed(1)}</strong>.</p>
+            <p>No adult weight management services are available for BMI below 25.</p>
+            <p>You may still benefit from general lifestyle resources such as <strong>Better Health</strong>.</p>
+        `;
+        return;
+    }
+
+    let services = [];
+
+    // NHS Digital WMP
     if (bmi >= 30 && (diabetesStatus === "type1" || diabetesStatus === "type2" || highBP)) {
         services.push({
             name: "NHS Digital Weight Management Programme",
             tags: ["Lifestyle support"],
-            description: "12-week online/app-based digital programme via GP or community pharmacy referral.",
-            criteria: "BMI ≥30 plus Type 1/Type 2 diabetes or high blood pressure."
+            description: "12-week digital programme via GP/pharmacy referral.",
+            criteria: "BMI ≥30 + diabetes or high blood pressure."
         });
     }
 
-    // West Sussex Wellbeing (Tier 2)
+    // Tier 2
     if (bmi >= 25 && bmi <= 40) {
         services.push({
-            name: "West Sussex Wellbeing – 12-week weight management course (Tier 2)",
+            name: "West Sussex Wellbeing – Tier 2",
             tags: ["Lifestyle support"],
-            description: "In-person or virtual group weight management course via self-referral.",
+            description: "12-week in-person or virtual programme.",
             criteria: "BMI 25–40."
         });
     }
     if (bmi > 25) {
         services.push({
-            name: "GroHealth – 12 month digital programme (Tier 2)",
+            name: "GroHealth – Tier 2",
             tags: ["Lifestyle support"],
-            description: "12-month access to digital programme via app.",
+            description: "12-month digital programme.",
             criteria: "BMI >25."
         });
     }
     services.push({
-        name: "Better Health (national resources)",
+        name: "Better Health",
         tags: ["Lifestyle support"],
-        description: "Open access healthy eating and activity resources.",
-        criteria: "Available to all adults."
+        description: "National healthy lifestyle resources.",
+        criteria: "Available to all."
     });
 
-    // NHS Diabetes Prevention Programme
+    // Diabetes Prevention Programme
     if (diabetesStatus === "prediabetes" || diabetesStatus === "gestationalHistory") {
         services.push({
-            name: "NHS Diabetes Prevention Programme (Healthier You)",
+            name: "NHS Diabetes Prevention Programme",
             tags: ["Lifestyle support"],
-            description: "Structured programme via GP or self-referral to Healthier You.",
-            criteria: "Prediabetes or previous gestational diabetes; able to do light exercise; not if previous diabetes or currently pregnant."
+            description: "Structured support via GP or self-referral.",
+            criteria: "Prediabetes or previous gestational diabetes."
         });
     }
 
-    // Wegovy (Semaglutide) Tier 3
+    // Wegovy
     const wegovyQualifiers = [
         precancer, transplant, iih, awaitingSurgery,
         fertility, geneticObesity, severeOSA
@@ -234,50 +200,46 @@ function checkEligibility() {
 
     if (bmi >= 35 && wegovyQualifiers >= 1) {
         services.push({
-            name: "Wegovy® (Semaglutide) – Tier 3 specialist weight service",
+            name: "Wegovy – Tier 3",
             tags: ["Medication + lifestyle support"],
-            description: "Weekly self-injection plus holistic lifestyle support via specialist weight service.",
-            criteria: "BMI ≥35 plus at least one qualifying clinical condition (e.g. cancer-related, transplant, IIH, surgery barrier, fertility, genetic obesity, severe OSA)."
+            description: "Weekly injection + specialist support.",
+            criteria: "BMI ≥35 + ≥1 qualifying condition."
         });
     }
 
-    // Mounjaro (Tirzepatide)
+    // Mounjaro
     const mounjaroConditions = [
-        (cvd || masld), // atherosclerotic CVD / MASLD proxy
-        highBP,
-        abnormalFats,
-        sleepApnoea,
-        (diabetesStatus === "type2")
+        cvd, highBP, abnormalFats, sleepApnoea, (diabetesStatus === "type2")
     ].filter(Boolean).length;
 
     if (bmi >= 35 && mounjaroConditions >= 4) {
         services.push({
-            name: "Mounjaro® (Tirzepatide) with Behavioural Support for Obesity Programme",
+            name: "Mounjaro – GP + BSOP",
             tags: ["Medication + lifestyle support"],
-            description: "Weekly self-injection prescribed by GP plus mandatory behavioural, diet and activity support.",
-            criteria: "Until March 2027: BMI ≥35 plus 4 out of 5 conditions (Type 2 diabetes, high blood pressure, heart disease/stroke, sleep apnoea, abnormal blood fats). Engagement with BSOP mandatory."
+            description: "Weekly injection + mandatory behavioural support.",
+            criteria: "BMI ≥35 + 4 of 5 cardiometabolic conditions."
         });
     }
 
-    // Bariatric surgery (Tier 4)
+    // Bariatric surgery
     if (bmi > 50) {
         services.push({
-            name: "Bariatric surgery – Tier 4 (first-line for BMI >50)",
+            name: "Bariatric surgery – Tier 4 (first-line)",
             tags: ["Surgery"],
-            description: "Surgical weight loss via bariatric service.",
-            criteria: "BMI >50 (first-line option)."
+            description: "Surgical weight loss.",
+            criteria: "BMI >50."
         });
     }
     if (bmi >= 40 || (bmi >= 35 && (cvd || highBP || iih || masld || sleepApnoea || diabetesStatus === "type2"))) {
         services.push({
             name: "Bariatric surgery – Tier 4",
             tags: ["Surgery"],
-            description: "Surgical weight loss via GP referral to bariatric surgery.",
-            criteria: "BMI ≥40, or BMI ≥35 plus significant obesity-related health conditions (e.g. CVD, hypertension, IIH, MASLD, OSA, Type 2 diabetes)."
+            description: "Surgical weight loss via GP referral.",
+            criteria: "BMI ≥40 or BMI ≥35 + obesity-related conditions."
         });
     }
 
-    // Specialist Tier 3 programme (MoreLife / Oviva)
+    // Tier 3 MoreLife/Oviva
     const tier3Eligible =
         completedTier2 &&
         !lostFivePercent &&
@@ -289,39 +251,26 @@ function checkEligibility() {
 
     if (tier3Eligible) {
         services.push({
-            name: "Specialist Tier 3 weight loss programme – MoreLife / Oviva",
+            name: "Tier 3 – MoreLife / Oviva",
             tags: ["Lifestyle support"],
-            description: "12-month in-person or online specialist weight loss programme via GP referral.",
-            criteria: "Fully engaged & completed Tier 2 without ≥5% weight loss plus BMI >40, or BMI >35 with hypertension/CVD/sleep apnoea, or BMI >30 with recent onset Type 2 diabetes."
+            description: "12-month specialist programme.",
+            criteria: "Completed Tier 2 without ≥5% loss + BMI criteria."
         });
     }
 
-    const resultDiv = document.getElementById("result");
-    resultDiv.style.display = "block";
-
     if (services.length === 0) {
-        resultDiv.innerHTML = "<h2>Your results</h2><p>No specific services matched the information entered. Consider general lifestyle support (e.g. Better Health) and discussing options with your GP.</p>";
+        resultDiv.innerHTML = "<h2>Your results</h2><p>No specific services matched your criteria.</p>";
         return;
     }
 
     let html = "<h2>Your results</h2>";
-    html += "<p>Based on the details you entered, you may be eligible for the following services. Final eligibility is determined by your GP or referring clinician.</p>";
-
     services.forEach(s => {
-        html += "<div class='service'>";
-        html += "<h3>" + s.name + "</h3>";
-        html += "<div>";
-        s.tags.forEach(t => {
-            let cls = "tag";
-            if (t === "Lifestyle support") cls += " tag-lifestyle";
-            if (t === "Medication + lifestyle support") cls += " tag-medication";
-            if (t === "Surgery") cls += " tag-surgery";
-            html += "<span class='" + cls + "'>" + t + "</span>";
-        });
-        html += "</div>";
-        html += "<p>" + s.description + "</p>";
-        html += "<small><strong>Key criteria:</strong> " + s.criteria + "</small>";
-        html += "</div>";
+        html += `<div class="service">
+            <h3>${s.name}</h3>
+            <div>${s.tags.map(t => `<span class="tag ${t === "Lifestyle support" ? "tag-lifestyle" : t === "Medication + lifestyle support" ? "tag-medication" : "tag-surgery"}">${t}</span>`).join("")}</div>
+            <p>${s.description}</p>
+            <small><strong>Criteria:</strong> ${s.criteria}</small>
+        </div>`;
     });
 
     resultDiv.innerHTML = html;
