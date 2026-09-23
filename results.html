@@ -1,3 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Your Results</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body { font-family: Arial; margin: 40px; }
+h1 { margin-bottom: 10px; }
+p { font-size: 18px; margin-top: 10px; }
+strong { font-size: 20px; }
+</style>
+</head>
+
+<body>
+<h1>Your Results</h1>
+
+<p><strong>Name:</strong> <span id="name"></span></p>
+<p><strong>BMI:</strong> <span id="bmi"></span></p>
+<p><strong>Adjusted BMI:</strong> <span id="adjusted"></span></p>
+
+<h2>Eligibility Result</h2>
+<p id="result"></p>
+
+<h3>Reason</h3>
+<p id="reason"></p>
+
 <script>
 // --- Retrieve stored values ---
 const fullName = localStorage.getItem("fullName");
@@ -12,7 +39,7 @@ const conditions = JSON.parse(localStorage.getItem("conditions") || "[]");
 const bmi = weight / ((height / 100) ** 2);
 const bmiRounded = bmi.toFixed(1);
 
-// --- Adjusted BMI (for ethnicity logic if needed) ---
+// --- Adjusted BMI ---
 let adjustedBMI = bmi;
 if (conditions.includes("southAsian")) {
     adjustedBMI = bmi + 2.5;
@@ -65,3 +92,6 @@ if (eligible) {
     document.getElementById("reason").innerText = "Your measurements and health information do not meet the eligibility criteria.";
 }
 </script>
+
+</body>
+</html>
