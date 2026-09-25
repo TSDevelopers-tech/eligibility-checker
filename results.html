@@ -279,17 +279,17 @@
         surgery: '<span class="badge badge-surgery">Surgery</span>'
       };
 
-      container.innerHTML = services.length
-        ? services.map(s => `
-            <div class="service">
-              ${badgeMap[s.type]}
-              <h3>${s.title}</h3>
-              <p>${s.desc}</p>
-              <p><strong>How to access:</strong> ${s.referral}</p>
-              <a href="${s.link}" target="_blank">Visit website</a>
-            </div>
-          `).join("")
-        : "<p>No services matched your criteria.</p>";
+container.innerHTML = services.length
+  ? services.map(s => `
+      <div class="service">
+        ${badgeMap[s.type]}
+        <h3>${s.title}</h3>
+        <p>${s.desc}</p>
+        <p><strong>How to access:</strong> ${s.referral}</p>
+        ${s.link ? `<a href="${s.link}" target="_blank">Visit website</a>` : ""}
+      </div>
+    `).join("")
+  : "<p>No services matched your criteria.</p>";
     }
 
     buildSummary();
